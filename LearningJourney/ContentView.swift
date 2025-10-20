@@ -17,14 +17,16 @@ struct ContentView: View {
                     Circle()
                         .fill(Color.black)
                         .frame(width:109,height: 109)
-                        .shadow(color:Color.orange , radius: 2)
+                        .shadow(color: Color.orange.opacity(1), radius: 0.1, x: 0.5, y: 0.5)
+                        .shadow(color: Color.orange.opacity(1), radius: 0.1, x: -0.5, y: -0.5)
+                        //.shadow(color:Color.orange , radius: 2)
                         .blur(radius: 0.25)
-                    
+
                     Image(systemName: "flame.fill")
                         .font(.system(size: 36))
                         .foregroundColor(.orange)
                     
-                }//Z
+                }//Z icon
                 
                 
                 Spacer().frame(height: 47)
@@ -71,17 +73,20 @@ struct ContentView: View {
                 
                 HStack{
                     
-                    
                     ZStack{
                         
                         Rectangle()
                             .frame(width: 97 , height: 48)
                             .cornerRadius(1000)
-                            .foregroundStyle(Color.orange)
+                            .foregroundStyle(Color.orangeApp)
+                            
+                            .shadow(color: Color.orange.opacity(1), radius: 0.1, x: 0.9, y: 0.9)
+                            .shadow(color: Color.orange.opacity(1), radius: 0.1, x: -0.9, y: -0.9)
                         
                         Button("Week") {
                             /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
                         }
+                        //.buttonStyle(.glass(.clear))
                         .foregroundStyle(Color.white)
                         .frame(width: 97 , height: 48)
                         
@@ -92,8 +97,11 @@ struct ContentView: View {
                         Rectangle()
                             .frame(width: 97 , height: 48)
                             .cornerRadius(1000)
-                            .foregroundStyle(Color.gray)
-                        
+                            .foregroundStyle(Color.black)
+                            .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0.5, y: 0.5)
+                            .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.5, y: -0.5)
+
+                           
                         Button("Month") {
                             /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
                         }
@@ -107,7 +115,9 @@ struct ContentView: View {
                         Rectangle()
                             .frame(width: 97 , height: 48)
                             .cornerRadius(1000)
-                            .foregroundStyle(Color.gray)
+                            .foregroundStyle(Color.black)
+                            .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0.5, y: 0.5)
+                            .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.5, y: -0.5)
                         
                         Button("Year") {
                             /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
@@ -121,6 +131,7 @@ struct ContentView: View {
                     
                 }//H
                 
+                
                 Spacer().frame(height: 223)
             
                 ZStack{
@@ -128,7 +139,9 @@ struct ContentView: View {
                     Rectangle()
                         .frame(width: 182 , height: 48)
                         .cornerRadius(1000)
-                        .foregroundStyle(Color.orange)
+                        .foregroundStyle(Color.orangeApp)
+                        .shadow(color: Color.orange.opacity(1), radius: 0.1, x: 0.9, y: 0.9)
+                        .shadow(color: Color.orange.opacity(1), radius: 0.1, x: -0.9, y: -0.9)
                     
                     Button("Start learning") {
                         /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
