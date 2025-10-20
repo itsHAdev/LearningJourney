@@ -21,9 +21,12 @@ struct changeLearningView: View {
                 TextField("Swift", text: .constant(""))
                     .padding()
                     .frame(width: 393 , height: 48)
-                
-                Color.gray
-                    .frame(width: 361 , height: 0.3)
+                    .overlay(
+                            Rectangle()
+                                .frame(height: 1.5)
+                                .foregroundStyle(Color.blackApp),
+                            alignment: .bottom
+                        )
                 
                 Spacer().frame(height: 24)
                 
@@ -38,60 +41,71 @@ struct changeLearningView: View {
             
             HStack{
                 
+                Button{}label: {
+                    
+                    ZStack{
+                        
+                        Rectangle()
+                            .frame(width: 97 , height: 48)
+                            .cornerRadius(1000)
+                            .foregroundStyle(Color.orangeApp)
+                            
+                            .shadow(color: Color.orange.opacity(1), radius: 0.1, x: 0.9, y: 0.9)
+                            .shadow(color: Color.orange.opacity(1), radius: 0.1, x: -0.9, y: -0.9)
+                    
+                        Text("Week")
+                            .foregroundStyle(Color.white)
+                            .frame(width: 97 , height: 48)
+                    }//z
+                }//bWeek
                 
-                ZStack{
+                Button{}label: {
                     
-                    Rectangle()
-                        .frame(width: 97 , height: 48)
-                        .cornerRadius(1000)
-                        .foregroundStyle(Color.orange)
+                    ZStack{
+                        
+                        Rectangle()
+                            .frame(width: 97 , height: 48)
+                            .cornerRadius(1000)
+                            .foregroundStyle(Color.blackApp)
+                            .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0.5, y: 0.5)
+                            .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.5, y: -0.5)
                     
-                    Button("Week") {
-                        /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
-                    }
-                    .foregroundStyle(Color.white)
-                    .frame(width: 97 , height: 48)
-                    
-                }//Week
+                        Text("Month")
+                            .foregroundStyle(Color.white)
+                            .frame(width: 97 , height: 48)
+                    }//z
+                }//bMonth
                 
-                ZStack{
+                Button{}label: {
                     
-                    Rectangle()
-                        .frame(width: 97 , height: 48)
-                        .cornerRadius(1000)
-                        .foregroundStyle(Color.gray)
+                    ZStack{
+                        
+                        Rectangle()
+                            .frame(width: 97 , height: 48)
+                            .cornerRadius(1000)
+                            .foregroundStyle(Color.blackApp)
+                            .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0.5, y: 0.5)
+                            .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.5, y: -0.5)
                     
-                    Button("Month") {
-                        /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
-                    }
-                    .foregroundStyle(Color.white)
-                    .frame(width: 97 , height: 48)
-                    
-                }//month
-                
-                ZStack{
-                    
-                    Rectangle()
-                        .frame(width: 97 , height: 48)
-                        .cornerRadius(1000)
-                        .foregroundStyle(Color.gray)
-                    
-                    Button("Year") {
-                        /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
-                    }
-                    .foregroundStyle(Color.white)
-                    .frame(width: 97 , height: 48)
-                    
-                }//year
-                
-                Spacer()
+                        Text("Year")
+                            .foregroundStyle(Color.white)
+                            .frame(width: 97 , height: 48)
+                    }//z
+                }//bYear
+        
+                Spacer()//يخليهم من اليسار
                 
             }//H
             
             Spacer()
             
+               
         }//vMain
+        
+        .padding(.horizontal, 16)
+
     }
+    
 }
 
 #Preview {

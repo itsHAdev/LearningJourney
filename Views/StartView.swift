@@ -57,7 +57,7 @@ struct StartView: View {
                     .frame(width: 393 , height: 48)
                 
                 Color.blackApp
-                    .frame(width: 361 , height: 1)
+                    .frame(width: 361 , height: 1.5)
                 
                 Spacer().frame(height: 24)
                 

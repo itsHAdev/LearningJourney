@@ -9,7 +9,31 @@ import SwiftUI
 
 struct SwiftUIView1: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        ZStack{
+            
+            Color.orange
+                .frame(width: 160,height: 69)
+                .cornerRadius(34)
+                .opacity(0.2)
+            
+            HStack{
+                
+                Image(systemName: "flame.fill")
+                    .foregroundStyle(Color.orange)
+                    .font(.system(size: 20))
+                
+                VStack{
+                    Text("3")
+                        .font(.system(size: 24))
+                        .bold()
+                    
+                    Text("Days Learned")
+                        .font(.system(size: 12))
+                        .multilineTextAlignment(.leading)
+                }//v
+            }//h
+        }//z
     }
 }
 

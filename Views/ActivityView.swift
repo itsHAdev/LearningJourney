@@ -94,69 +94,101 @@ struct ActivityView: View {
                     
                     Spacer().frame(height: 12)
                     
-                    
                     HStack(spacing: 20) {
-                        
-                        Spacer().frame(width: 21)
-                        
-                        ForEach(days, id: \.self) { day in
-                            Text(day)
-                                .foregroundStyle(Color.gray)
-                                .font(.system(size: 13, weight: .bold))
+                        ForEach(Array(zip(days, numb)), id: \.0) { day, number in
+                            VStack(spacing: 4) {
+                                Text(day)
+                                    .foregroundStyle(Color.gray)
+                                    .font(.system(size: 13, weight: .semibold))
+                                
+                                Text(number)
+                                    .foregroundStyle(Color.white)
+                                    .font(.system(size: 20))
+                                    .multilineTextAlignment(.center)
+                            }
                         }
-                        
-                        Spacer().frame(width: 21)
-                        
-                    }//hDays
+                    }//hDayNumb
+                    Color.gray
+                        .frame(width: 329, height: 0.5)
                     
-                    Spacer().frame(height: 4)
+                    Spacer().frame(height: 12)
                     
-                    ZStack{
-                        
-                    HStack(spacing: 20) {
-                        ForEach(numb, id: \.self) { day in
-                            Text(day)
-                                .foregroundStyle(Color.gray)
-                                .font(.system(size: 24, weight: .bold))
-                        }
-                        
-                        
-                        
-                        
-                    }//hNumb
-                        
-//                        HStack(spacing:20){
-//                            Circle()
-//                                .fill(Color.orangeApp.opacity(0.4))
-//                                .frame(width: 44,height: 44)
-//                            
-//                            Circle()
-//                                .fill(Color.cyanApp.opacity(0.4))
-//                                .frame(width: 44,height: 44)
-//                            
-//                            
-//                        }//hCircle
-                    }//z
+                    Text("Learning Swift")
+                        .offset(x:-107,y:0)
+                        .font(.system(size: 16))
+                        .bold()
                     
+                    Spacer().frame(height: 12)
                     
-                    
-                    
+                    HStack{
+                        ZStack{
+                            
+                            Color.orange
+                                .frame(width: 160,height: 69)
+                                .cornerRadius(34)
+                                .opacity(0.2)
+                            
+                            HStack{
+                                
+                                Image(systemName: "flame.fill")
+                                    .foregroundStyle(Color.orange)
+                                    .font(.system(size: 20))
+                                
+                                VStack{
+                                    Text("3")
+                                        .offset(x:-30,y:0)
+                                        .font(.system(size: 24))
+                                        .bold()
+                                    
+                                    Text("Days Learned")
+                                        .font(.system(size: 12))
+                                        .multilineTextAlignment(.leading)
+                                }//v
+                            }//h
+                        }//zStreak1
+                        
+                        ZStack{
+                            
+                            Color.cyan
+                                .frame(width: 160,height: 69)
+                                .cornerRadius(34)
+                                .opacity(0.2)
+                            
+                            HStack{
+                                
+                                Image(systemName: "cube.fill")
+                                    .foregroundStyle(Color.cyan)
+                                    .font(.system(size: 20))
+                                
+                                VStack{
+                                    Text("1")
+                                        .offset(x:-30,y:0)
+                                        .font(.system(size: 24))
+                                        .bold()
+                                    
+                                    Text("Days Freezed")
+                                        .font(.system(size: 12))
+                                        .multilineTextAlignment(.leading)
+                                }//v
+                            }//h
+                        }//zStreak2
+                        
+                    }//hStreks1+2
+                   
                 }//v
-                
-               
             }//zBlackBox
             
+            
+            
             Spacer().frame(height: 32)
-            
-            
             
             Button{}label: {
                 ZStack{
                     Color.orangeApp
                         .frame(width: 274 , height: 274)
                         .cornerRadius(1000)
-                        .shadow(color: Color.orange.opacity(1), radius: 1, x: 1, y: 2)
-                        .shadow(color: Color.orange.opacity(1), radius: 1, x: -0.8, y: -0.8)
+                        .shadow(color: Color.orange.opacity(1), radius: 1, x: 1.5, y: 1.5)
+                        .shadow(color: Color.orange.opacity(1), radius: 1, x: -0.8, y: -2)
                     
                     Text("Log as Learned")
                         .foregroundStyle(Color.white)
@@ -169,28 +201,28 @@ struct ActivityView: View {
             
             Spacer().frame(height: 32)
             
-            
-            Button{
-                
-            }label: {
+            Button{}label: {
                 ZStack{
-//                    Color.cyanApp
-//                        .shadow(color: Color.red.opacity(1), radius: 0.1, x: 0.5, y: 0.5)
-//                        .shadow(color: Color.red.opacity(1), radius: 0.1, x: -0.5, y: -0.5)
-//                        .frame(width: 274 , height: 48)
-//                        .cornerRadius(1000)
-//                        
+                    Color.cyanApp
+                        .frame(width: 274 , height: 48)
+                        .cornerRadius(1000)
+                        .shadow(color: Color.white.opacity(1), radius: 1, x: 0.9, y: 0.9)
+                        .shadow(color: Color.white.opacity(1), radius: 1, x: -0.5, y: -0.5)
+                        
                     Text("Log as Freezed")
                         .frame(width: 274 , height: 48)
                         .foregroundStyle(Color.white)
                 }//Z
             }//B
-            .buttonStyle(.glassProminent)
             
-            .shadow(color: Color.red.opacity(1), radius: 0.1, x: 0.5, y: 0.5)
-            .shadow(color: Color.red.opacity(1), radius: 0.1, x: -0.5, y: -0.5)
-            //.frame(width: 274 , height: 48)
-            //.cornerRadius(1000)
+            
+            
+//            .buttonStyle(.glassProminent)
+//            
+//            .shadow(color: Color.red.opacity(1), radius: 0.1, x: 0.5, y: 0.5)
+//            .shadow(color: Color.red.opacity(1), radius: 0.1, x: -0.5, y: -0.5)
+//            //.frame(width: 274 , height: 48)
+//            //.cornerRadius(1000)
             
             
             Spacer().frame(height: 12)
