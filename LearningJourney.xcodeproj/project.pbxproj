@@ -36,6 +36,7 @@
 		5FDB66492EA60A1A0030D0A3 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		5FDB664B2EA60A1A0030D0A3 /* changeLearningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = changeLearningView.swift; sourceTree = "<group>"; };
 		5FDB66602EA60B7C0030D0A3 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		5FDB66622EA617C40030D0A3 /* Untitled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Untitled.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -107,6 +108,7 @@
 		5FDB665B2EA60B090030D0A3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5FDB66622EA617C40030D0A3 /* Untitled.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";

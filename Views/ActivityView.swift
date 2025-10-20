@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ActivityView: View {
+    let days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
+    let numb = ["20", "21", "22", "23", "24", "25", "26"]
     var body: some View {
         
         VStack{
@@ -54,12 +56,95 @@ struct ActivityView: View {
             
         }//hTopView
             
-            Color.black
-                .frame(width: 365 , height: 254)
-                .cornerRadius(13)
-                .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0.1, y: 0.1)
-               .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.3, y: -0.3)
-        
+            ZStack{
+               
+                Color.blackApp
+                    .frame(width: 365 , height: 254)
+                    .cornerRadius(13)
+                    .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0.1, y: 0.1)
+                    .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.3, y: -0.3)
+                
+                VStack{
+                    
+                    HStack{
+                        Text("October 2025")
+                            .font(.system(size: 17))
+                    
+                        
+                        Button{}label: {
+                            Image(systemName: "chevron.right")
+                                .foregroundStyle(Color.orange)
+                        }
+                     
+                        Spacer().frame(width: 150)
+                        
+                        Button{}label: {
+                            Image(systemName: "chevron.left")
+                                .foregroundStyle(Color.orange)
+                        }
+                        
+                        Spacer().frame(width: 27)
+                        
+                        Button{}label: {
+                            Image(systemName: "chevron.right")
+                                .foregroundStyle(Color.orange)
+                        }
+                       
+                    }//hArowB
+                    
+                    Spacer().frame(height: 12)
+                    
+                    
+                    HStack(spacing: 20) {
+                        
+                        Spacer().frame(width: 21)
+                        
+                        ForEach(days, id: \.self) { day in
+                            Text(day)
+                                .foregroundStyle(Color.gray)
+                                .font(.system(size: 13, weight: .bold))
+                        }
+                        
+                        Spacer().frame(width: 21)
+                        
+                    }//hDays
+                    
+                    Spacer().frame(height: 4)
+                    
+                    ZStack{
+                        
+                    HStack(spacing: 20) {
+                        ForEach(numb, id: \.self) { day in
+                            Text(day)
+                                .foregroundStyle(Color.gray)
+                                .font(.system(size: 24, weight: .bold))
+                        }
+                        
+                        
+                        
+                        
+                    }//hNumb
+                        
+//                        HStack(spacing:20){
+//                            Circle()
+//                                .fill(Color.orangeApp.opacity(0.4))
+//                                .frame(width: 44,height: 44)
+//                            
+//                            Circle()
+//                                .fill(Color.cyanApp.opacity(0.4))
+//                                .frame(width: 44,height: 44)
+//                            
+//                            
+//                        }//hCircle
+                    }//z
+                    
+                    
+                    
+                    
+                }//v
+                
+               
+            }//zBlackBox
             
             Spacer().frame(height: 32)
             
