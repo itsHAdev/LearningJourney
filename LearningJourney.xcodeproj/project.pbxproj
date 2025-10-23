@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5F9D689F2EAA395B004CC9E4 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9D689E2EAA395B004CC9E4 /* ViewModel.swift */; };
+		5F76CCBD2EAA5DF1009E3333 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F76CCBC2EAA5DEF009E3333 /* ActivityViewModel.swift */; };
 		5FB333C52EA6AA4C00700369 /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB333C42EA6AA4C00700369 /* ButtonView.swift */; };
 		5FB333C72EA6ABB900700369 /* UpdateGoalAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB333C62EA6ABB900700369 /* UpdateGoalAlertView.swift */; };
 		5FB333C92EA76C1200700369 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB333C82EA76C1200700369 /* CalendarView.swift */; };
@@ -37,8 +37,8 @@
 		5F12A0152EA0D22C006D600B /* LearningJourney.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearningJourney.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F12A0222EA0D22D006D600B /* LearningJourneyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LearningJourneyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F12A02C2EA0D22D006D600B /* LearningJourneyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LearningJourneyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F76CCBC2EAA5DEF009E3333 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 		5F9D689B2EAA27DB004CC9E4 /* model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = model.swift; sourceTree = "<group>"; };
-		5F9D689E2EAA395B004CC9E4 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		5FB333C42EA6AA4C00700369 /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		5FB333C62EA6ABB900700369 /* UpdateGoalAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateGoalAlertView.swift; sourceTree = "<group>"; };
 		5FB333C82EA76C1200700369 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 		5FDB665C2EA60B130030D0A3 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				5F9D689E2EAA395B004CC9E4 /* ViewModel.swift */,
+				5F76CCBC2EAA5DEF009E3333 /* ActivityViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -288,11 +288,11 @@
 			files = (
 				5FB333C92EA76C1200700369 /* CalendarView.swift in Sources */,
 				5FDB664F2EA60A1A0030D0A3 /* ActivityView.swift in Sources */,
-				5F9D689F2EAA395B004CC9E4 /* ViewModel.swift in Sources */,
 				5FDB66502EA60A1A0030D0A3 /* changeLearningView.swift in Sources */,
 				5FB333C52EA6AA4C00700369 /* ButtonView.swift in Sources */,
 				5FDB66612EA60B7C0030D0A3 /* StartView.swift in Sources */,
 				5FB333C72EA6ABB900700369 /* UpdateGoalAlertView.swift in Sources */,
+				5F76CCBD2EAA5DF1009E3333 /* ActivityViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
