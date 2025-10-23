@@ -10,6 +10,8 @@ import Combine
 
 class ActivityViewModel: ObservableObject {
     
+    @AppStorage("userText") private var userText: String = ""
+    @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
     @Published var selectedMonth = Calendar.current.component(.month, from: Date())
     @Published var selectedYear = Calendar.current.component(.year, from: Date())
     @Published var showingPicker = false

@@ -6,11 +6,17 @@
 import SwiftUI
 
 struct ActivityView: View {
-    
+    @State private var showSecondView = false
+    @AppStorage("userText") private var userText: String = ""
     @StateObject private var viewModel = ActivityViewModel()
     
+    
     var body: some View {
+        
+        
         VStack{
+            // MARK: - Navigation Bar
+
             HStack{
                 Text("Activity")
                     .font(.largeTitle)
@@ -29,10 +35,12 @@ struct ActivityView: View {
                         Image(systemName: "calendar")
                             .foregroundStyle(Color.white)
                             .font(.system(size: 17))
-                    }
-                }
+                    }//z
+                }//bCalendar
                 
-                Button{} label:{
+                Button{
+                   showSecondView = true
+                } label:{
                     ZStack{
                         Color.black
                             .cornerRadius(1000)
@@ -43,9 +51,14 @@ struct ActivityView: View {
                         Image(systemName: "pencil.and.outline")
                             .foregroundStyle(Color.white)
                             .font(.system(size: 17))
-                    }
+                    }//z
+                }//bDrow
+                .fullScreenCover(isPresented: $showSecondView) {
+                    ChangeLearningView()
                 }
-            }
+            }//h
+            
+            //MARK: - BlackBox
             
             ZStack{
                 Color.blackApp
@@ -64,22 +77,22 @@ struct ActivityView: View {
                         Button { viewModel.showingPicker = true } label: {
                             Image(systemName: "chevron.right")
                                 .foregroundStyle(Color.orange)
-                        }
+                        }//bالزر الي جنب الشهر
                         
                         Spacer().frame(width: 150)
                         
                         Button { viewModel.previousWeek() } label: {
                             Image(systemName: "chevron.left")
                                 .foregroundStyle(Color.orange)
-                        }
+                        }//bleft
                         
                         Spacer().frame(width: 27)
                         
                         Button { viewModel.nextWeek() } label: {
                             Image(systemName: "chevron.right")
                                 .foregroundStyle(Color.orange)
-                        }
-                    }
+                        }//bRight
+                    }//h
                     
                     Spacer().frame(height: 12)
                     
@@ -94,20 +107,21 @@ struct ActivityView: View {
                                     .foregroundStyle(Color.white)
                                     .font(.system(size: 20))
                                     .multilineTextAlignment(.center)
-                            }
-                        }
-                    }
+                            }//v
+                        }//forEach
+                    }//hNumpDays
                     
                     Color.gray.frame(width: 329, height: 0.5)
                     Spacer().frame(height: 12)
                     
-                    Text("Learning Swift")
+                       Text("Learning \(userText)")
                         .offset(x:-107)
                         .font(.system(size: 16))
                         .bold()
                     
                     Spacer().frame(height: 12)
                     
+                    //MARK: - Streak
                     HStack{
                         ZStack{
                             Color.orangeApp.frame(width: 160,height: 69).cornerRadius(34).opacity(0.2)
@@ -116,9 +130,9 @@ struct ActivityView: View {
                                 VStack{
                                     Text("3").offset(x:-30).font(.system(size: 24)).bold()
                                     Text("Days Learned").font(.system(size: 12)).multilineTextAlignment(.leading)
-                                }
-                            }
-                        }
+                                }//v
+                            }//h
+                        }//zorange
                         
                         ZStack{
                             Color.cyan.frame(width: 160,height: 69).cornerRadius(34).opacity(0.2)
@@ -127,14 +141,16 @@ struct ActivityView: View {
                                 VStack{
                                     Text("1").offset(x:-30).font(.system(size: 24)).bold()
                                     Text("Days Freezed").font(.system(size: 12)).multilineTextAlignment(.leading)
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+                                }//v
+                            }//h
+                        }//zCyan
+                    }//hStreak
+                }//v
+            }//zBlackBox
             
             Spacer().frame(height: 32)
+            
+            //MARK: - Circle Button
             
             Button{} label: {
                 ZStack{
@@ -147,10 +163,13 @@ struct ActivityView: View {
                         .font(.system(size: 36))
                         .bold()
                         .multilineTextAlignment(.center)
-                }
-            }
+                    
+                }//z
+            }//bCircle
             
             Spacer().frame(height: 32)
+            
+            //MARK: - Freezed Button
             
             Button{} label: {
                 ZStack{
@@ -160,14 +179,17 @@ struct ActivityView: View {
                     
                     Text("Log as Freezed").frame(width: 274 , height: 48)
                         .foregroundStyle(Color.white)
-                }
-            }
+                }//z
+            }//b
             
             Spacer().frame(height: 12)
             
             Text("1 out of 2 Freezes used ").font(.system(size: 14)).foregroundStyle(Color.gray)
-        }
-        // Overlay Picker
+            
+        }//vMain
+        
+        //MARK: - Overlay Picker
+       
         .overlay(
             Group {
                 if viewModel.showingPicker {
@@ -205,13 +227,14 @@ struct ActivityView: View {
                     .transition(.scale.combined(with: .opacity)).zIndex(1)
                 }
             }
-        )
+        )//overlay
+        
         .animation(.easeInOut, value: viewModel.showingPicker)
-    }
+        
+    }//body
 }
 
 #Preview {
     ActivityView()
         .preferredColorScheme(.dark)
 }
-

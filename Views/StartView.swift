@@ -8,8 +8,14 @@
 import SwiftUI
 
 struct StartView: View {
+    @StateObject private var viewModel = StartViewModel()
+    @State private var showHome = false
+        @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
+        @AppStorage("userText") private var userText: String = ""
+    
     var body: some View {
         
+       
             VStack {
                 
                 ZStack{
@@ -53,7 +59,7 @@ struct StartView: View {
                         .font(.system(size: 22))
                     
                     
-                    TextField("Swift", text: .constant(""))
+                    TextField("Swift", text: $viewModel.inputText)
                         .padding()
                         .frame(width: 393 , height: 48)
                     
@@ -70,93 +76,66 @@ struct StartView: View {
                 
                 Spacer().frame(height: 17)
                 
-                HStack{
-                    
-                    Button{}label: {
-                        
-                        ZStack{
-                            
-                            Rectangle()
-                                .frame(width: 97 , height: 48)
+                HStack(spacing: 10) {
+                    ForEach(["Week","Month","Year"], id: \.self) { button in
+                        Button {
+                            viewModel.selectedButton = button
+                        } label: {
+                            Text(button)
+                                .frame(width: 97, height: 48)
+                                .background(viewModel.selectedButton == button ? Color.orange : Color.black)
+                                .foregroundColor(.white)
                                 .cornerRadius(1000)
-                                .foregroundStyle(Color.orangeApp)
-                            
-                                .shadow(color: Color.orange.opacity(1), radius: 0.1, x: 0.9, y: 0.9)
-                                .shadow(color: Color.orange.opacity(1), radius: 0.1, x: -0.9, y: -0.9)
-                            
-                            Text("Week")
-                                .foregroundStyle(Color.white)
-                                .frame(width: 97 , height: 48)
-                        }//z
-                    }//bWeek
-                    
-                    Button{}label: {
-                        
-                        ZStack{
-                            
-                            Rectangle()
-                                .frame(width: 97 , height: 48)
-                                .cornerRadius(1000)
-                                .foregroundStyle(Color.blackApp)
-                                .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0.5, y: 0.5)
-                                .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.5, y: -0.5)
-                            
-                            Text("Month")
-                                .foregroundStyle(Color.white)
-                                .frame(width: 97 , height: 48)
-                        }//z
-                    }//bMonth
-                    
-                    Button{}label: {
-                        
-                        ZStack{
-                            
-                            Rectangle()
-                                .frame(width: 97 , height: 48)
-                                .cornerRadius(1000)
-                                .foregroundStyle(Color.blackApp)
-                                .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0.5, y: 0.5)
-                                .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.5, y: -0.5)
-                            
-                            Text("Year")
-                                .foregroundStyle(Color.white)
-                                .frame(width: 97 , height: 48)
-                        }//z
-                    }//bYear
-                    
+                                .shadow(color: viewModel.selectedButton == button ? Color.orange.opacity(1) : Color.white.opacity(1),
+                                        radius: 0.1,
+                                        x: viewModel.selectedButton == button ? 0.9 : 0.5,
+                                        y: viewModel.selectedButton == button ? 0.9 : 0.5)
+                                .shadow(color: viewModel.selectedButton == button ? Color.orange.opacity(1) : Color.white.opacity(1),
+                                        radius: 0.1,
+                                        x: viewModel.selectedButton == button ? -0.9 : -0.5,
+                                        y: viewModel.selectedButton == button ? -0.9 : -0.5)
+                        }//B
+                    }//forEach
                     Spacer()//يخليهم من اليسار
-                    
-                }//H
+                                }//h
                 
                 
                 Spacer().frame(height: 223)
                 
                 
                 
-                Button{
-                    
-                }label: {
-                    ZStack{
-                        Rectangle()
-                            .frame(width: 182 , height: 48)
-                            .cornerRadius(1000)
-                            .foregroundStyle(Color.orangeApp)
-                            .shadow(color: Color.orange.opacity(1), radius: 0.1, x: 1.3, y: 1.3)
-                            .shadow(color: Color.orange.opacity(1), radius: 0.1, x: -0.9, y: -1.5)
-                        
-                        Text("Start learning")
-                            .foregroundStyle(Color.white)
-                        
-                    }//z
-                  
-                }//b
-            }//V1
-            .padding()
-      
-   
+                Button {
+                    userText = viewModel.inputText
+                                    hasSeenOnboarding = true
+                                    showHome = true                            } label: {
+                                ZStack {
+                                    Rectangle()
+                                        .frame(width: 182 , height: 48)
+                                        .cornerRadius(1000)
+                                        .foregroundStyle(Color.orangeApp)
+                                        .shadow(color: Color.orange.opacity(1), radius: 0.1, x: 1.3, y: 1.3)
+                                        .shadow(color: Color.orange.opacity(1), radius: 0.1, x: -0.9, y: -1.5)
+                                    
+                                    Text("Start learning")
+                                        .foregroundStyle(Color.white)
+                                }
+                            }
+                                    .disabled(viewModel.selectedButton == nil)
+                                                .fullScreenCover(isPresented: $showHome) {
+                                                    ActivityView()
+                                                }
+                
+                
+            }//v
+       
+        .padding()
+        
+        
+        
         
     }
-}
+    }
+
 
 #Preview {
     StartView()
