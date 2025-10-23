@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ActivityView: View {
+
     let days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
     let numb = ["20", "21", "22", "23", "24", "25", "26"]
     var body: some View {
@@ -123,7 +124,7 @@ struct ActivityView: View {
                     HStack{
                         ZStack{
                             
-                            Color.orange
+                            Color.orangeApp
                                 .frame(width: 160,height: 69)
                                 .cornerRadius(34)
                                 .opacity(0.2)
@@ -186,6 +187,7 @@ struct ActivityView: View {
                 ZStack{
                     Color.orangeApp
                         .frame(width: 274 , height: 274)
+                        .glassEffect(.clear)
                         .cornerRadius(1000)
                         .shadow(color: Color.orange.opacity(1), radius: 1, x: 1.5, y: 1.5)
                         .shadow(color: Color.orange.opacity(1), radius: 1, x: -0.8, y: -2)
@@ -193,9 +195,11 @@ struct ActivityView: View {
                     Text("Log as Learned")
                         .foregroundStyle(Color.white)
                             .frame(width: 232 ,height: 86)
+                           
                             .font(.system(size: 36))
                             .bold()
                             .multilineTextAlignment(.center)
+                            
                 }//z
             }//B
             

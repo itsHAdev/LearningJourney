@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5FB333C52EA6AA4C00700369 /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB333C42EA6AA4C00700369 /* ButtonView.swift */; };
 		5FB333C72EA6ABB900700369 /* UpdateGoalAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB333C62EA6ABB900700369 /* UpdateGoalAlertView.swift */; };
+		5FB333C92EA76C1200700369 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB333C82EA76C1200700369 /* CalendarView.swift */; };
 		5FDB664F2EA60A1A0030D0A3 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDB66492EA60A1A0030D0A3 /* ActivityView.swift */; };
 		5FDB66502EA60A1A0030D0A3 /* changeLearningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDB664B2EA60A1A0030D0A3 /* changeLearningView.swift */; };
 		5FDB66612EA60B7C0030D0A3 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDB66602EA60B7C0030D0A3 /* StartView.swift */; };
@@ -37,6 +38,7 @@
 		5F12A02C2EA0D22D006D600B /* LearningJourneyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LearningJourneyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FB333C42EA6AA4C00700369 /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		5FB333C62EA6ABB900700369 /* UpdateGoalAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateGoalAlertView.swift; sourceTree = "<group>"; };
+		5FB333C82EA76C1200700369 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		5FDB66492EA60A1A0030D0A3 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		5FDB664B2EA60A1A0030D0A3 /* changeLearningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = changeLearningView.swift; sourceTree = "<group>"; };
 		5FDB66602EA60B7C0030D0A3 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
@@ -128,8 +130,9 @@
 				5FDB66602EA60B7C0030D0A3 /* StartView.swift */,
 				5FDB66492EA60A1A0030D0A3 /* ActivityView.swift */,
 				5FDB664B2EA60A1A0030D0A3 /* changeLearningView.swift */,
-				5FB333C42EA6AA4C00700369 /* ButtonView.swift */,
 				5FB333C62EA6ABB900700369 /* UpdateGoalAlertView.swift */,
+				5FB333C82EA76C1200700369 /* CalendarView.swift */,
+				5FB333C42EA6AA4C00700369 /* ButtonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FB333C92EA76C1200700369 /* CalendarView.swift in Sources */,
 				5FDB664F2EA60A1A0030D0A3 /* ActivityView.swift in Sources */,
 				5FDB66502EA60A1A0030D0A3 /* changeLearningView.swift in Sources */,
 				5FB333C52EA6AA4C00700369 /* ButtonView.swift in Sources */,

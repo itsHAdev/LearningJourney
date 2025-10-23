@@ -9,6 +9,7 @@ import SwiftUI
 
 struct StartView: View {
     var body: some View {
+        
         VStack {
             
             ZStack{
@@ -146,7 +147,6 @@ struct StartView: View {
                     
                 }//z
             }//b
-          
         }//V1
    
         .padding()
