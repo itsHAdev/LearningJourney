@@ -8,32 +8,18 @@
 import SwiftUI
 
 struct SwiftUIView1: View {
+    @State private var date = Date.now
     var body: some View {
         
-        ZStack{
+        VStack{
             
-            Color.orange
-                .frame(width: 160,height: 69)
-                .cornerRadius(34)
-                .opacity(0.2)
+            LabeledContent("Date"){
+                
+                DatePicker("",selection: $date)
+            }
             
-            HStack{
-                
-                Image(systemName: "flame.fill")
-                    .foregroundStyle(Color.orange)
-                    .font(.system(size: 20))
-                
-                VStack{
-                    Text("3")
-                        .font(.system(size: 24))
-                        .bold()
-                    
-                    Text("Days Learned")
-                        .font(.system(size: 12))
-                        .multilineTextAlignment(.leading)
-                }//v
-            }//h
-        }//z
+            
+        }//v
     }
 }
 
