@@ -137,10 +137,14 @@ struct ActivityView: View {
                             ZStack{
                                 Color.cyan.frame(width: 160,height: 69).cornerRadius(34).opacity(0.2)
                                 HStack{
-                                    Image(systemName: "cube.fill").foregroundStyle(Color.cyan).font(.system(size: 20))
+                                    Image(systemName: "cube.fill")
+                                        .foregroundStyle(Color.cyan).font(.system(size: 20))
                                     VStack{
-                                        Text("1").offset(x:-30).font(.system(size: 24)).bold()
-                                        Text("Days Freezed").font(.system(size: 12)).multilineTextAlignment(.leading)
+                                        Text("\(viewModel.freezedCount)")
+                                            .offset(x:-30).font(.system(size: 24)).bold()
+                                        
+                                        Text("Days Freezed")
+                                            .font(.system(size: 12)).multilineTextAlignment(.leading)
                                     }//v
                                 }//h
                             }//zCyan
@@ -153,52 +157,88 @@ struct ActivityView: View {
                 //MARK: - Circle Button
                 
                 Button {
-                                viewModel.logAsLearned()
-                            } label: {
-                                ZStack {
-                                    if viewModel.hasLearnedToday {
-                                        Color.blackOrange
-                                            .frame(width: 274, height: 274)
-                                            .cornerRadius(1000)
-                                            .shadow(color: Color.orange.opacity(1), radius: 1, x: 1.5, y: 1.5)
-                                            .shadow(color: Color.orange.opacity(1), radius: 1, x: -0.8, y: -2)
-                                        
-                                        Text("Learned Today")
-                                            .foregroundStyle(Color.orange)
-                                            .frame(width: 232, height: 86)
-                                            .font(.system(size: 36))
-                                            .bold()
-                                    } else {
-                                        Color.orangeApp
-                                            .frame(width: 274, height: 274)
-                                            .cornerRadius(1000)
-                                            .shadow(color: Color.orange.opacity(1), radius: 1, x: 1.5, y: 1.5)
-                                            .shadow(color: Color.orange.opacity(1), radius: 1, x: -0.8, y: -2)
-                                        
-                                        Text("Log as Learned")
-                                            .foregroundStyle(Color.white)
-                                            .frame(width: 232, height: 86)
-                                            .font(.system(size: 36))
-                                            .bold()
-                                    }
-                                }
-                            }
-                            .disabled(viewModel.hasLearnedToday) // يمنع الضغط مرة ثانية
-                  
+                    viewModel.logAsLearned()
+                } label: {
+                    ZStack {
+                        if viewModel.hasLearnedToday {
+                            // المستخدم ضغط التعلم
+                            Color.blackOrange
+                                .frame(width: 274, height: 274)
+                                .cornerRadius(1000)
+                                .shadow(color: Color.orange.opacity(1), radius: 1, x: 1.5, y: 1.5)
+                                .shadow(color: Color.orange.opacity(1), radius: 1, x: -0.8, y: -2)
+
+                            Text("Learned Today")
+                                .foregroundStyle(Color.orange)
+                                .frame(width: 232, height: 86)
+                                .font(.system(size: 36))
+                                .bold()
+                            
+                        } else if viewModel.hasFreezedToday {
+                            // المستخدم ضغط Freezed → زر التعلم يتحول إلى Day Freezed
+                            Color.blackCyan
+                                .frame(width: 274, height: 274)
+                                .cornerRadius(1000)
+                                .shadow(color: Color.cyanApp.opacity(1), radius: 1, x: 1.5, y: 1.5)
+                                .shadow(color: Color.cyanApp.opacity(1), radius: 1, x: -0.8, y: -2)
+
+                            Text("Day Freezed")
+                                .foregroundStyle(Color.cyan)
+                                .frame(width: 200, height: 86)
+                                .font(.system(size: 36))
+                                .bold()
+                                .multilineTextAlignment(.center)
+                        } else {
+                            // الحالة الطبيعية قبل الضغط
+                            Color.orangeApp
+                                .frame(width: 274, height: 274)
+                                .cornerRadius(1000)
+                                .shadow(color: Color.orange.opacity(1), radius: 1, x: 2.7, y: 2.7)
+                                .shadow(color: Color.orange.opacity(1), radius: 1, x: -2.5, y: -2.5)
+
+                            Text("Log as Learned")
+                                .foregroundStyle(Color.white)
+                                .frame(width: 232, height: 86)
+                                .font(.system(size: 36))
+                                .bold()
+                        }
+                    }
+                }
+                .disabled(viewModel.hasLearnedToday || viewModel.hasFreezedToday)
+
                 Spacer().frame(height: 32)
                 
                 //MARK: - Freezed Button
                 
-                Button{} label: {
-                    ZStack{
-                        Color.cyanApp.frame(width: 274 , height: 48).cornerRadius(1000)
-                            .shadow(color: Color.white.opacity(1), radius: 1, x: 0.9, y: 0.9)
-                            .shadow(color: Color.white.opacity(1), radius: 1, x: -0.5, y: -0.5)
-                        
-                        Text("Log as Freezed").frame(width: 274 , height: 48)
-                            .foregroundStyle(Color.white)
-                    }//z
-                }//b
+                Button {
+                               viewModel.logAsFreezed()
+                           } label: {
+                               ZStack {
+                                   if viewModel.hasFreezedToday {
+                                       Color.darkCyan
+                                           .frame(width: 274, height: 48)
+                                           .cornerRadius(1000)
+                                           .shadow(color: Color.cyan.opacity(1), radius: 1, x: 0.2, y: 0.2)
+                                           .shadow(color: Color.cyan.opacity(1), radius: 1, x: -0.1, y: -0.1)
+
+                                       Text("Log as Freezed")
+                                           .foregroundStyle(Color.white)
+                                           .frame(width: 274, height: 48)
+                                   } else {
+                                       Color.cyanApp
+                                           .frame(width: 274, height: 48)
+                                           .cornerRadius(1000)
+                                           .shadow(color: Color.white.opacity(1), radius: 1, x: 0.9, y: 0.9)
+                                           .shadow(color: Color.white.opacity(1), radius: 1, x: -0.5, y: -0.5)
+
+                                       Text("Log as Freezed")
+                                           .foregroundStyle(Color.white)
+                                           .frame(width: 274, height: 48)
+                                   }
+                               }
+                           }
+                           .disabled(viewModel.hasLearnedToday || viewModel.hasFreezedToday)
+
                 
                 Spacer().frame(height: 12)
                 

@@ -215,19 +215,34 @@ class ActivityViewModel: ObservableObject {
         return months[safeIndex]
     }
     
-    @Published var hasLearnedToday = false   // هل تعلم اليوم؟
-       @Published var streakCount = 0           // عدد الأيام المتتالية
 
-       // دالة لما المستخدم يضغط زر التعلم
-       func logAsLearned() {
-           if !hasLearnedToday {
-               hasLearnedToday = true
-               streakCount += 1
-           }
-       }
+        @Published var hasLearnedToday = false
+        @Published var hasFreezedToday = false
 
-       // (اختياري) إعادة التفعيل في اليوم الجديد
-       func resetForNewDay() {
-           hasLearnedToday = false
-       }
+        @Published var streakCount = 0         // الأيام المتعلمة
+        @Published var freezedCount = 0        // الأيام المجمدة
+
+        // دالة الضغط على زر التعلم
+        func logAsLearned() {
+            if !hasLearnedToday && !hasFreezedToday {
+                hasLearnedToday = true
+                streakCount += 1
+            }
+        }
+
+        // دالة الضغط على زر Freezed
+        func logAsFreezed() {
+            if !hasFreezedToday && !hasLearnedToday {
+                hasFreezedToday = true
+                freezedCount += 1
+            }
+        }
+
+        // (اختياري) إعادة التفعيل في اليوم الجديد
+        func resetForNewDay() {
+            hasLearnedToday = false
+            hasFreezedToday = false
+        }
+  
+
 }
