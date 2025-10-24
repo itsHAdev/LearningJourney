@@ -71,11 +71,6 @@ struct ActivityView: View {
                                 Text("\(viewModel.currentMonthName) \(String(format: "%d", viewModel.selectedYear))") 
                                     .font(.system(size: 17))
                                
-                            
-                            
-                            
-                            
-                            
                             Button { viewModel.showingPicker = true } label: {
                                 Image(systemName: "chevron.right")
                                     .foregroundStyle(Color.orange)
@@ -130,8 +125,11 @@ struct ActivityView: View {
                                 HStack{
                                     Image(systemName: "flame.fill").foregroundStyle(Color.orange).font(.system(size: 20))
                                     VStack{
-                                        Text("1").offset(x:-30).font(.system(size: 24)).bold()
-                                        Text("Days Learned").font(.system(size: 12)).multilineTextAlignment(.leading)
+                                        Text(" \(viewModel.streakCount)")
+                                            .offset(x:-30).font(.system(size: 24)).bold()
+                                        
+                                        Text("Days Learned")
+                                            .font(.system(size: 12)).multilineTextAlignment(.leading)
                                     }//v
                                 }//h
                             }//zorange
@@ -154,21 +152,39 @@ struct ActivityView: View {
                 
                 //MARK: - Circle Button
                 
-                Button{} label: {
-                    ZStack{
-                        Color.orangeApp.frame(width: 274 , height: 274).glassEffect(.clear).cornerRadius(1000)
-                            .shadow(color: Color.orange.opacity(1), radius: 1, x: 1.5, y: 1.5)
-                            .shadow(color: Color.orange.opacity(1), radius: 1, x: -0.8, y: -2)
-                        
-                        Text("Log as Learned").foregroundStyle(Color.white)
-                            .frame(width: 232 ,height: 86)
-                            .font(.system(size: 36))
-                            .bold()
-                            .multilineTextAlignment(.center)
-                        
-                    }//z
-                }//bCircle
-                
+                Button {
+                                viewModel.logAsLearned()
+                            } label: {
+                                ZStack {
+                                    if viewModel.hasLearnedToday {
+                                        Color.blackOrange
+                                            .frame(width: 274, height: 274)
+                                            .cornerRadius(1000)
+                                            .shadow(color: Color.orange.opacity(1), radius: 1, x: 1.5, y: 1.5)
+                                            .shadow(color: Color.orange.opacity(1), radius: 1, x: -0.8, y: -2)
+                                        
+                                        Text("Learned Today")
+                                            .foregroundStyle(Color.orange)
+                                            .frame(width: 232, height: 86)
+                                            .font(.system(size: 36))
+                                            .bold()
+                                    } else {
+                                        Color.orangeApp
+                                            .frame(width: 274, height: 274)
+                                            .cornerRadius(1000)
+                                            .shadow(color: Color.orange.opacity(1), radius: 1, x: 1.5, y: 1.5)
+                                            .shadow(color: Color.orange.opacity(1), radius: 1, x: -0.8, y: -2)
+                                        
+                                        Text("Log as Learned")
+                                            .foregroundStyle(Color.white)
+                                            .frame(width: 232, height: 86)
+                                            .font(.system(size: 36))
+                                            .bold()
+                                    }
+                                }
+                            }
+                            .disabled(viewModel.hasLearnedToday) // يمنع الضغط مرة ثانية
+                  
                 Spacer().frame(height: 32)
                 
                 //MARK: - Freezed Button
