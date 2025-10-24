@@ -125,7 +125,7 @@ struct ActivityView: View {
                                 HStack{
                                     Image(systemName: "flame.fill").foregroundStyle(Color.orange).font(.system(size: 20))
                                     VStack{
-                                        Text("3").offset(x:-30).font(.system(size: 24)).bold()
+                                        Text("1").offset(x:-30).font(.system(size: 24)).bold()
                                         Text("Days Learned").font(.system(size: 12)).multilineTextAlignment(.leading)
                                     }//v
                                 }//h
