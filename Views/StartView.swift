@@ -15,7 +15,6 @@ struct StartView: View {
     
     var body: some View {
         
-       
             VStack {
                 
                 ZStack{
@@ -83,7 +82,7 @@ struct StartView: View {
                         } label: {
                             Text(button)
                                 .frame(width: 97, height: 48)
-                                .background(viewModel.selectedButton == button ? Color.orange : Color.black)
+                                .background(viewModel.selectedButton == button ? Color.orangeApp : Color.black)
                                 .foregroundColor(.white)
                                 .cornerRadius(1000)
                                 .shadow(color: viewModel.selectedButton == button ? Color.orange.opacity(1) : Color.white.opacity(1),
@@ -96,18 +95,20 @@ struct StartView: View {
                                         y: viewModel.selectedButton == button ? -0.9 : -0.5)
                         }//B
                     }//forEach
+                    
                     Spacer()//يخليهم من اليسار
-                                }//h
+                    
+                }//h
                 
                 
                 Spacer().frame(height: 223)
                 
                 
-                
                 Button {
                     userText = viewModel.inputText
                                     hasSeenOnboarding = true
-                                    showHome = true                            } label: {
+                                    showHome = true
+                                               } label: {
                                 ZStack {
                                     Rectangle()
                                         .frame(width: 182 , height: 48)
@@ -118,20 +119,17 @@ struct StartView: View {
                                     
                                     Text("Start learning")
                                         .foregroundStyle(Color.white)
-                                }
-                            }
+                                }//z
+                            }//B
                                     .disabled(viewModel.selectedButton == nil)
                                                 .fullScreenCover(isPresented: $showHome) {
                                                     ActivityView()
                                                 }
                 
                 
-            }//v
+            }//vMain
        
-        .padding()
-        
-        
-        
+            .padding()
         
     }
     }

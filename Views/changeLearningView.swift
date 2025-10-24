@@ -17,41 +17,43 @@ struct ChangeLearningView: View {
     
     var body: some View {
         VStack {
-            
-            // زر التشيك فوق يمين الصفحة
+    
             HStack {
+                
                 Spacer()
                 
-                if viewModel.selectedButton != nil { // يظهر فقط بعد الاختيار
-                    Button {
-                        showAlert = true
-                    } label: {
-                        ZStack {
-                            Circle()
-                                .frame(width: 44, height: 44)
-                                .foregroundColor(Color.orangeApp)
-                                .shadow(color: Color.orange.opacity(1), radius: 0.1, x: 1, y: 1)
-                                .shadow(color: Color.orange.opacity(1), radius: 0.1, x: -1, y: -0.5)
-                            Image(systemName: "checkmark")
-                                .font(.system(size: 26))
-                                .foregroundStyle(Color.white)
-                        }
-                    }
-                    .alert("If you update now, your streak will start over.", isPresented: $showAlert) {
-                        Button("Cancel", role: .cancel) { }
-                        Button("Confirm") {
-                            userText = viewModel.inputText
-                            hasSeenOnboarding = true
-                            showHome = true
-                        }
-                    }
-                    .tint(Color.orange)
-                    .fullScreenCover(isPresented: $showHome) {
-                        ActivityView()
-                    }
-                }
-            }
-            .padding(.bottom, 20)
+                    .navigationTitle("Learning Goal")
+                           .navigationBarTitleDisplayMode(.inline)
+                           .toolbar {
+                               ToolbarItem(placement: .navigationBarTrailing) {
+                                   // يظهر فقط إذا تم اختيار زر
+                                   if viewModel.selectedButton != nil {
+                                       Button {
+                                           showAlert = true
+                                       } label: {
+                                           Image(systemName: "checkmark")
+                                                .foregroundColor(.white)
+                                       }
+                                       .alert("If you update now, your streak will start over.", isPresented: $showAlert) {
+                                           Button("Cancel", role: .cancel) { }
+                                           Button("Confirm") {
+                                               userText = viewModel.inputText
+                                               hasSeenOnboarding = true
+                                               showHome = true
+                                           }
+                                       }
+                                      //.tint(Color.orange)//يخلي نص الاليرت برتقالي
+                                   }
+                               }
+                           }
+                           
+                           .fullScreenCover(isPresented: $showHome) {
+                               ActivityView()
+                           }
+                
+            }//hCheekB+Alert
+          
+            //.padding(.bottom, 20)
             
             VStack {
                 Text("I want to learn")
@@ -69,7 +71,8 @@ struct ChangeLearningView: View {
                 Text("I want to learn it in a ")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.system(size:22))
-            }
+                
+            }//vTextField
             
             Spacer().frame(height: 17)
             
@@ -92,15 +95,23 @@ struct ChangeLearningView: View {
                                     radius: 0.1,
                                     x: viewModel.selectedButton == button ? -0.9 : -0.5,
                                     y: viewModel.selectedButton == button ? -0.9 : -0.5)
-                    }
-                }
-                Spacer()
-            }
+                    }//b
+                    
+                }//forE
+                
+                Spacer()//يخليهم يسار
+                
+                    
+                
+            }//H3button
             
-            Spacer()
-        } // VStack
-        .padding(.horizontal, 16)
-    }
+            Spacer()//يخليهم فوق
+        
+        }//vMain
+        
+        .padding()//يخلي في مسافه من اليسار في الكود كله 
+        
+    }//body
 }
 
 #Preview {

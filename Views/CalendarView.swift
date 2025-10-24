@@ -8,50 +8,45 @@
 import SwiftUI
 
 struct CalendarView: View {
-    let days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
     
-    let months2025: [(name: String, numberOfDays: Int, startDayIndex: Int)] = [
-        ("January", 31, 3),
-        ("February", 28, 6),
-        ("March", 31, 6),
-        ("April", 30, 2),
-        ("May", 31, 4),
-        ("June", 30, 0),
-        ("July", 31, 2),
-        ("August", 31, 5),
-        ("September", 30, 1),
-        ("October", 31, 3),
-        ("November", 30, 6),
-        ("December", 31, 1)
-    ]
+    @StateObject private var viewModel = CalendarViewModel()
     
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            VStack(spacing: 10) {
-                ForEach(months2025.indices, id: \.self) { index in
-                    VStack(spacing: -30) {
-                        CalendarMonthView(
-                            monthName: months2025[index].name,
-                            year: 2025,
-                            numberOfDays: months2025[index].numberOfDays,
-                            startDayIndex: months2025[index].startDayIndex,
-                            days: days
-                        )
-                        
-                        // Divider مع مسافة صغيرة جدًا بين الأرقام والخط
-                        if index != months2025.count - 1 {
-                            Spacer().frame(height: 4) // صغيرة جدًا
-                            Divider()
-                                .background(Color.gray.opacity(0.6))
-                                .padding(.horizontal)
+        
+        
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(spacing: 10) {
+                    ForEach(viewModel.months2025.indices, id: \.self) { index in
+                        VStack(spacing: -30) {
+                            CalendarMonthView(
+                                monthName: viewModel.months2025[index].name,
+                                year: 2025,
+                                numberOfDays: viewModel.months2025[index].numberOfDays,
+                                startDayIndex: viewModel.months2025[index].startDayIndex,
+                                days: viewModel.days
+                            )
+                            
+                            if index != viewModel.months2025.count - 1 {
+                                Spacer().frame(height: 4)
+                                Divider()
+                                    .background(Color.gray.opacity(0.6))
+                                    .padding(.horizontal)
+                            }
                         }
                     }
                 }
-            }
-            .padding()
-        }
-    }
+                .padding()
+            }//scrollV
+        
+        //عنوان NavBar
+        .navigationTitle("All activities")
+        
+    }//body
 }
+
+
+
+import SwiftUI
 
 struct CalendarMonthView: View {
     let monthName: String
@@ -70,9 +65,8 @@ struct CalendarMonthView: View {
                 .cornerRadius(15)
             
             VStack {
-                // اسم الشهر مع مسافة كبيرة (24) من أعلى المربع
                 HStack {
-                    Text("\(monthName) \(year)")
+                    Text("\(monthName) \(String(format: "%d", year))")
                         .font(.system(size: 17, weight: .semibold))
                     Spacer()
                 }
@@ -81,7 +75,6 @@ struct CalendarMonthView: View {
                 
                 Spacer().frame(height: 8)
                 
-                // أيام الأسبوع
                 HStack(spacing: 23) {
                     ForEach(days, id: \.self) { day in
                         Text(day)
@@ -92,7 +85,6 @@ struct CalendarMonthView: View {
                 
                 Spacer().frame(height: 8)
                 
-                // أرقام الشهر
                 LazyVGrid(columns: columns, spacing: 10) {
                     ForEach(daysArray.indices, id: \.self) { index in
                         if let dayNumber = daysArray[index] {

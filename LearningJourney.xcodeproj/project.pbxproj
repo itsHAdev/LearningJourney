@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		5F76CCBD2EAA5DF1009E3333 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F76CCBC2EAA5DEF009E3333 /* ActivityViewModel.swift */; };
-		5FB333C52EA6AA4C00700369 /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB333C42EA6AA4C00700369 /* ButtonView.swift */; };
 		5FB333C92EA76C1200700369 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB333C82EA76C1200700369 /* CalendarView.swift */; };
 		5FDB664F2EA60A1A0030D0A3 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDB66492EA60A1A0030D0A3 /* ActivityView.swift */; };
 		5FDB66502EA60A1A0030D0A3 /* changeLearningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDB664B2EA60A1A0030D0A3 /* changeLearningView.swift */; };
 		5FDB66612EA60B7C0030D0A3 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDB66602EA60B7C0030D0A3 /* StartView.swift */; };
+		5FF2F1D82EAA64F60045BDAA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF2F1D42EAA64F60045BDAA /* ContentView.swift */; };
 		5FF2F1E62EAA6DC60045BDAA /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF2F1E52EAA6DBF0045BDAA /* CalendarViewModel.swift */; };
 		5FF2F1EE2EAA7B760045BDAA /* StartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF2F1ED2EAA7B720045BDAA /* StartViewModel.swift */; };
 		5FF2F1F02EAA8A990045BDAA /* changeLearningViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF2F1EF2EAA8A860045BDAA /* changeLearningViewModel.swift */; };
@@ -41,11 +41,11 @@
 		5F12A02C2EA0D22D006D600B /* LearningJourneyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LearningJourneyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F76CCBC2EAA5DEF009E3333 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
 		5F9D689B2EAA27DB004CC9E4 /* model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = model.swift; sourceTree = "<group>"; };
-		5FB333C42EA6AA4C00700369 /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		5FB333C82EA76C1200700369 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		5FDB66492EA60A1A0030D0A3 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		5FDB664B2EA60A1A0030D0A3 /* changeLearningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = changeLearningView.swift; sourceTree = "<group>"; };
 		5FDB66602EA60B7C0030D0A3 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		5FF2F1D42EAA64F60045BDAA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5FF2F1E52EAA6DBF0045BDAA /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		5FF2F1ED2EAA7B720045BDAA /* StartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewModel.swift; sourceTree = "<group>"; };
 		5FF2F1EF2EAA8A860045BDAA /* changeLearningViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = changeLearningViewModel.swift; sourceTree = "<group>"; };
@@ -139,11 +139,11 @@
 		5FDB665D2EA60B270030D0A3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5FF2F1D42EAA64F60045BDAA /* ContentView.swift */,
 				5FDB66602EA60B7C0030D0A3 /* StartView.swift */,
 				5FDB66492EA60A1A0030D0A3 /* ActivityView.swift */,
 				5FDB664B2EA60A1A0030D0A3 /* changeLearningView.swift */,
 				5FB333C82EA76C1200700369 /* CalendarView.swift */,
-				5FB333C42EA6AA4C00700369 /* ButtonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -296,9 +296,9 @@
 				5FF2F1E62EAA6DC60045BDAA /* CalendarViewModel.swift in Sources */,
 				5FB333C92EA76C1200700369 /* CalendarView.swift in Sources */,
 				5FDB664F2EA60A1A0030D0A3 /* ActivityView.swift in Sources */,
+				5FF2F1D82EAA64F60045BDAA /* ContentView.swift in Sources */,
 				5FF2F1F02EAA8A990045BDAA /* changeLearningViewModel.swift in Sources */,
 				5FDB66502EA60A1A0030D0A3 /* changeLearningView.swift in Sources */,
-				5FB333C52EA6AA4C00700369 /* ButtonView.swift in Sources */,
 				5FDB66612EA60B7C0030D0A3 /* StartView.swift in Sources */,
 				5F76CCBD2EAA5DF1009E3333 /* ActivityViewModel.swift in Sources */,
 			);
