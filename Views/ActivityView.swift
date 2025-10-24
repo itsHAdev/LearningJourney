@@ -3,6 +3,7 @@
 //  LearningJourney
 //
 //  Created by Hadeel Alansari on 18/10/2025.
+
 import SwiftUI
 
 struct ActivityView: View {
