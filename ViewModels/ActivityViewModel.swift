@@ -200,4 +200,18 @@ class ActivityViewModel: ObservableObject {
             updateNumbersForWeek()
         }
     }
+    
+  
+    var currentMonthName: String {
+        // 1. تحقق من أن المؤشر ضمن النطاق [1, 12]
+        let safeIndex = selectedMonth - 1
+        
+        guard safeIndex >= 0 && safeIndex < months.count else {
+            // 2. إذا لم يكن ضمن النطاق، أعد قيمة احتياطية آمنة
+            return "شهر غير معروف"
+        }
+        
+        // 3. أعد اسم الشهر بشكل آمن
+        return months[safeIndex]
+    }
 }

@@ -67,8 +67,12 @@ struct ActivityView: View {
                     
                     VStack{
                         HStack{
-                            Text("\(viewModel.months[viewModel.selectedMonth - 1]) \(String(format: "%d", viewModel.selectedYear))")
-                                .font(.system(size: 17))
+        
+                                Text("\(viewModel.currentMonthName) \(String(format: "%d", viewModel.selectedYear))") 
+                                    .font(.system(size: 17))
+                               
+                            
+                            
                             
                             
                             
