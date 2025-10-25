@@ -244,5 +244,27 @@ class ActivityViewModel: ObservableObject {
             hasFreezedToday = false
         }
   
+    // ✅ نضيف متغيرين لتحديد اليوم اللي تعلم أو تجمد
+    @Published var learnedDay: String? = nil
+    @Published var freezedDay: String? = nil
 
-}
+    // ✅ نحدث الدوال الموجودة علشان تربط الزرين بالكالندر
+    func logAsLearned(currentDay: String) {
+        if !hasLearnedToday && !hasFreezedToday {
+            hasLearnedToday = true
+            streakCount += 1
+            learnedDay = currentDay
+        }
+    }
+
+    func logAsFreezed(currentDay: String) {
+        if !hasFreezedToday && !hasLearnedToday {
+            hasFreezedToday = true
+            freezedCount += 1
+            freezedDay = currentDay
+        }
+    }
+
+
+    
+}//class

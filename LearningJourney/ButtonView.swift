@@ -13,24 +13,48 @@ struct ButtonView: View {
         
         VStack{
             
+            
+            // MARK: - Will done
+            
+            Image(systemName: "hands.clap.fill")
+                .foregroundStyle(Color.orange)
+                .font(.system(size: 40))
+                .multilineTextAlignment(.center)
+            
+            Spacer().frame(height: 4)
+            
+            Text("Will done!")
+                .frame(width: 338,height: 26)
+                .font(.system(size: 22))
+                .bold()
+            
+            Spacer().frame(height: 4)
+            
+            Text("Goal completed! start learning again or set new learning goal")
+                .frame(width: 338,height: 56)
+                .font(.system(size: 18))
+                .foregroundStyle(Color.gray.opacity(0.6))
+                .multilineTextAlignment(.center)
+            
+            
             // MARK: - blackOrange Learned Today
             
-            Button{}label: {
-                ZStack{
-                    Color.blackOrange
-                        .frame(width: 274 , height: 274)
-                        .cornerRadius(1000)
-                        .shadow(color: Color.orange.opacity(1), radius: 1, x: 1.5, y: 1.5)
-                        .shadow(color: Color.orange.opacity(1), radius: 1, x: -0.8, y: -2)
-                    
-                    Text("Learned Today")
-                        .foregroundStyle(Color.orange)
-                        .frame(width: 232 ,height: 86)
-                        .font(.system(size: 36))
-                        .bold()
-                        .multilineTextAlignment(.center)
-                }//z
-            }//B
+//            Button{}label: {
+//                ZStack{
+//                    Color.blackOrange
+//                        .frame(width: 274 , height: 274)
+//                        .cornerRadius(1000)
+//                        .shadow(color: Color.orange.opacity(1), radius: 1, x: 1.5, y: 1.5)
+//                        .shadow(color: Color.orange.opacity(1), radius: 1, x: -0.8, y: -2)
+//                    
+//                    Text("Learned Today")
+//                        .foregroundStyle(Color.orange)
+//                        .frame(width: 232 ,height: 86)
+//                        .font(.system(size: 36))
+//                        .bold()
+//                        .multilineTextAlignment(.center)
+//                }//z
+//            }//B
             
             Spacer().frame(height: 32)
             // MARK: - blackCyan Freezed day
