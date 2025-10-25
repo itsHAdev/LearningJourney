@@ -16,6 +16,7 @@ struct ActivityView: View {
         
         NavigationStack{
             VStack{
+                
                 // MARK: - Navigation Bar
                 
                 HStack{
@@ -266,7 +267,9 @@ struct ActivityView: View {
 
                 Spacer().frame(height: 12)
                 
-                Text("1 out of 2 Freezes used ").font(.system(size: 14)).foregroundStyle(Color.gray)
+                Text("\(viewModel.freezedCount) out of 2 Freezes used ")
+                    .font(.system(size: 14)).foregroundStyle(Color.gray)
+                    .multilineTextAlignment(.center)
                 
             }//vMain
             .navigationBarBackButtonHidden(false)
