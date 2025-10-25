@@ -110,7 +110,7 @@ struct ActivityView: View {
                                     Text(number)
                                         .foregroundStyle(Color.white)
                                         .font(.system(size: 20))
-                                        .frame(width: 44, height: 44)
+                                        .frame(width: 40, height: 40)
                                         .background(
                                             ZStack {
                                                 if viewModel.learnedDay == number {
