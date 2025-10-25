@@ -257,14 +257,17 @@ class ActivityViewModel: ObservableObject {
         }
     }
 
+    //@Published var freezeCount = 0
+
     func logAsFreezed(currentDay: String) {
-        if !hasFreezedToday && !hasLearnedToday {
+        if !hasFreezedToday && freezedCount < 2 {
             hasFreezedToday = true
             freezedCount += 1
-            freezedDay = currentDay
         }
     }
 
+
+      
 
     
 }//class

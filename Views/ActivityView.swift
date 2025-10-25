@@ -164,7 +164,7 @@ struct ActivityView: View {
                                     Image(systemName: "cube.fill")
                                         .foregroundStyle(Color.cyan).font(.system(size: 20))
                                     VStack{
-                                        Text("\(viewModel.freezedCount)")
+                                        Text(" \(viewModel.freezedCount)")
                                             .offset(x:-30).font(.system(size: 24)).bold()
                                         
                                         Text("Days Freezed")
@@ -230,7 +230,7 @@ struct ActivityView: View {
                         }
                     }
                 }
-                .disabled(viewModel.hasLearnedToday || viewModel.hasFreezedToday)
+                .disabled(viewModel.hasLearnedToday || viewModel.hasFreezedToday || viewModel.freezedCount >= 2)
 
                 Spacer().frame(height: 32)
 
@@ -268,7 +268,8 @@ struct ActivityView: View {
                 Spacer().frame(height: 12)
                 
                 Text("\(viewModel.freezedCount) out of 2 Freezes used ")
-                    .font(.system(size: 14)).foregroundStyle(Color.gray)
+                    .font(.system(size: 14))
+                    .foregroundStyle(Color.gray)
                     .multilineTextAlignment(.center)
                 
             }//vMain
