@@ -9,9 +9,8 @@ import SwiftUI
 struct ActivityView: View {
     @State private var showSecondView = false
     @AppStorage("userText") private var userText: String = ""
-    @StateObject private var viewModel = ActivityViewModel()
-    
-    
+    @ObservedObject var activityVM: ActivityViewModel
+
     var body: some View {
         
         NavigationStack{
@@ -40,7 +39,7 @@ struct ActivityView: View {
                         }//z
                     }//navCalendar
             
-                    NavigationLink(destination: ChangeLearningView()) {
+                    NavigationLink(destination: ChangeLearningView(activityVM: activityVM)) {
                         ZStack {
                             Color.black
                                 .cornerRadius(1000)
@@ -72,24 +71,24 @@ struct ActivityView: View {
                 
                         HStack{
         
-                                Text("\(viewModel.currentMonthName) \(String(format: "%d", viewModel.selectedYear))") 
+                                Text("\(activityVM.currentMonthName) \(String(format: "%d", activityVM.selectedYear))") 
                                     .font(.system(size: 17))
                                
-                            Button { viewModel.showingPicker = true } label: {
+                            Button { activityVM.showingPicker = true } label: {
                                 Image(systemName: "chevron.right")
                                     .foregroundStyle(Color.orange)
                             }//bالزر الي جنب الشهر
                             
                             Spacer().frame(width: 150)
                             
-                            Button { viewModel.previousWeek() } label: {
+                            Button { activityVM.previousWeek() } label: {
                                 Image(systemName: "chevron.left")
                                     .foregroundStyle(Color.orange)
                             }//bleft
                             
                             Spacer().frame(width: 27)
                             
-                            Button { viewModel.nextWeek() } label: {
+                            Button { activityVM.nextWeek() } label: {
                                 Image(systemName: "chevron.right")
                                     .foregroundStyle(Color.orange)
                             }//bRight
@@ -98,25 +97,26 @@ struct ActivityView: View {
                         Spacer().frame(height: 12)
                         
                         HStack(spacing: 8) {
-                            ForEach(Array(zip(viewModel.days.indices, viewModel.numbers)), id: \.0) { index, number in
+                            ForEach(Array(zip(activityVM.days.indices, activityVM.numbers)), id: \.0) { index, number in
                                 VStack(spacing: 4) {
                                     
                                     // اسم اليوم
-                                    Text(viewModel.days[index])
+                                    Text(activityVM.days[index])
                                         .foregroundStyle(Color.gray)
                                         .font(.system(size: 13, weight: .semibold))
                                     
-                                    // الرقم مع الدائرة فقط
+                                    
+                                    // الرقم والدائره
                                     Text(number)
                                         .foregroundStyle(Color.white)
                                         .font(.system(size: 20))
                                         .frame(width: 40, height: 40)
                                         .background(
                                             ZStack {
-                                                if viewModel.learnedDay == number {
+                                                if activityVM.learnedDay == number {
                                                     Circle()
                                                         .foregroundStyle(Color.orange.opacity(0.4))
-                                                } else if viewModel.freezedDay == number {
+                                                } else if activityVM.freezedDay == number {
                                                     Circle()
                                                         .foregroundStyle(Color.cyan.opacity(0.4))
                                                 }
@@ -149,7 +149,7 @@ struct ActivityView: View {
                                 HStack{
                                     Image(systemName: "flame.fill").foregroundStyle(Color.orange).font(.system(size: 20))
                                     VStack{
-                                        Text(" \(viewModel.streakCount)")
+                                        Text(" \(activityVM.streakCount)")
                                             .offset(x:-30).font(.system(size: 24)).bold()
                                         
                                         Text("Days Learned")
@@ -164,7 +164,7 @@ struct ActivityView: View {
                                     Image(systemName: "cube.fill")
                                         .foregroundStyle(Color.cyan).font(.system(size: 20))
                                     VStack{
-                                        Text(" \(viewModel.freezedCount)")
+                                        Text(" \(activityVM.freezedCount)")
                                             .offset(x:-30).font(.system(size: 24)).bold()
                                         
                                         Text("Days Freezed")
@@ -180,14 +180,15 @@ struct ActivityView: View {
             
                 
                 // MARK: - Learned Button
+                
                 Button {
                     let today = String(Calendar.current.component(.day, from: Date()))
-                    viewModel.logAsLearned(currentDay: today)
+                    activityVM.logAsLearned(currentDay: today)
                 } label: {
                     ZStack {
-                        if viewModel.hasLearnedToday {
+                        if activityVM.hasLearnedToday {
                             
-                            // المستخدم ضغط على التعلم
+                            // Learned
                             Color.blackOrange
                                 .frame(width: 274, height: 274)
                                 .cornerRadius(1000)
@@ -200,8 +201,8 @@ struct ActivityView: View {
                                 .font(.system(size: 36))
                                 .bold()
 
-                        } else if viewModel.hasFreezedToday {
-                            // المستخدم ضغط Freezed → زر التعلم يتحول إلى Day Freezed
+                        } else if activityVM.hasFreezedToday {
+                            // Freeezed
                             Color.blackCyan
                                 .frame(width: 274, height: 274)
                                 .cornerRadius(1000)
@@ -215,7 +216,7 @@ struct ActivityView: View {
                                 .bold()
                                 .multilineTextAlignment(.center)
                         } else {
-                            // الحالة الطبيعية قبل الضغط
+                            // قبل الضغط
                             Color.orangeApp
                                 .frame(width: 274, height: 274)
                                 .cornerRadius(1000)
@@ -228,19 +229,21 @@ struct ActivityView: View {
                                 .font(.system(size: 36))
                                 .bold()
                         }
-                    }
-                }
-                .disabled(viewModel.hasLearnedToday || viewModel.hasFreezedToday || viewModel.freezedCount >= 2)
+                    }//z
+                }//b
+                .disabled(activityVM.hasLearnedToday || activityVM.hasFreezedToday || activityVM.freezedCount >= activityVM.maxFreezes)
 
                 Spacer().frame(height: 32)
 
                 // MARK: - Freezed Button
+                
                 Button {
                     let today = String(Calendar.current.component(.day, from: Date()))
-                    viewModel.logAsFreezed(currentDay: today)
+                    activityVM.logAsFreezed(currentDay: today)
                 } label: {
                     ZStack {
-                        if viewModel.hasFreezedToday {
+                        if activityVM.hasFreezedToday {
+                            // بعد الضغط
                             Color.darkCyan
                                 .frame(width: 274, height: 48)
                                 .cornerRadius(1000)
@@ -251,6 +254,7 @@ struct ActivityView: View {
                                 .foregroundStyle(Color.white)
                                 .frame(width: 274, height: 48)
                         } else {
+                            // قبل الضغط
                             Color.cyanApp
                                 .frame(width: 274, height: 48)
                                 .cornerRadius(1000)
@@ -263,39 +267,40 @@ struct ActivityView: View {
                         }
                     }
                 }
-                .disabled(viewModel.hasLearnedToday || viewModel.hasFreezedToday)
+                .disabled(activityVM.hasLearnedToday || activityVM.hasFreezedToday)
 
                 Spacer().frame(height: 12)
                 
-                Text("\(viewModel.freezedCount) out of 2 Freezes used ")
+            
+                Text("\(activityVM.freezedCount) out of \(activityVM.maxFreezes) Freezes used")
                     .font(.system(size: 14))
                     .foregroundStyle(Color.gray)
                     .multilineTextAlignment(.center)
                 
             }//vMain
             .navigationBarBackButtonHidden(false)
-        }//navS
+        }//navStack
         
         //MARK: - Overlay Picker
        
         .overlay(
             Group {
-                if viewModel.showingPicker {
+                if activityVM.showingPicker {
                     Color.black.opacity(0.4).ignoresSafeArea().onTapGesture {
-                        withAnimation { viewModel.showingPicker = false }
+                        withAnimation { activityVM.showingPicker = false }
                     }
                     
                     VStack(spacing: 20) {
                         Text("Select Month & Year").font(.headline).foregroundStyle(.white)
                         HStack(spacing: 0) {
-                            Picker("Month", selection: $viewModel.selectedMonth) {
+                            Picker("Month", selection: $activityVM.selectedMonth) {
                                 ForEach(1...12, id: \.self) { index in
-                                    Text(viewModel.months[index - 1]).tag(index)
+                                    Text(activityVM.months[index - 1]).tag(index)
                                 }
                             }.pickerStyle(.wheel).frame(width: 150)
                             
-                            Picker("Year", selection: $viewModel.selectedYear) {
-                                ForEach(viewModel.years, id: \.self) { year in
+                            Picker("Year", selection: $activityVM.selectedYear) {
+                                ForEach(activityVM.years, id: \.self) { year in
                                     Text(String(year)).tag(year)
                                 }
                             }.pickerStyle(.wheel).frame(width: 100)
@@ -303,8 +308,8 @@ struct ActivityView: View {
                         
                         Button("Done") {
                             withAnimation {
-                                viewModel.showingPicker = false
-                                viewModel.updateNumbersForWeek()
+                                activityVM.showingPicker = false
+                                activityVM.updateNumbersForWeek()
                             }
                         }
                         .font(.headline).padding(.vertical, 8).padding(.horizontal, 24)
@@ -317,12 +322,13 @@ struct ActivityView: View {
             }
         )//overlay
         
-        .animation(.easeInOut, value: viewModel.showingPicker)
+        .animation(.easeInOut, value: activityVM.showingPicker)
         
     }//body
 }
 
 #Preview {
-    ActivityView()
+    ActivityView(activityVM: ActivityViewModel())
         .preferredColorScheme(.dark)
 }
+

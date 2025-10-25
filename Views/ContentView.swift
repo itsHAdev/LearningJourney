@@ -9,18 +9,21 @@ import SwiftUI
 
 struct ContentView: View {
     @AppStorage("hasSeenStartView") private var hasSeenStartView = false
+    @StateObject var activityVM = ActivityViewModel()
     var body: some View {
         
         if hasSeenStartView {
-            ActivityView()
+            ActivityView(activityVM: activityVM)
         } else {
-            StartView()   
+            StartView(activityVM: activityVM)
         }
-    
+        
+     }
     }
-}
+
 
 #Preview {
     ContentView()
         .preferredColorScheme(.dark)
 }
+

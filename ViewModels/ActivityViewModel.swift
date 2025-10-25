@@ -4,34 +4,39 @@
 //
 //  Created by Hadeel Alansari on 23/10/2025.
 //
-
 import SwiftUI
 import Combine
 
+// MARK: - نموذج البيانات (ViewModel) المسؤول عن منطق صفحة النشاط (Activity)
 class ActivityViewModel: ObservableObject {
-    @Published var selectedButton: String? = nil
-    @AppStorage("userText") private var userText: String = ""
-    @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
     
-    @Published var selectedMonth: Int
-    @Published var selectedYear: Int
-    @Published var showingPicker = false
-    @Published var weekOffset = 0
-    @Published var days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
-    @Published var numbers: [String] = []
+    // MARK: - تخزين الإعدادات العامة باستخدام AppStorage (لحفظها حتى بعد إغلاق التطبيق)
+    @AppStorage("PlanDuration") var selectedButton: String = "Week" // نوع الخطة (أسبوع، شهر، سنة)
+    @AppStorage("userText") private var userText: String = ""        // نص المستخدم المحفوظ
+    @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false // لتحديد إذا شاهد المستخدم الشرح الأولي
     
-    let months = Calendar.current.monthSymbols
-    let years: [Int]
+    // MARK: - المتغيرات الملاحظة (Observable) لتحديث الواجهة بشكل مباشر عند التغيير
+    @Published var selectedMonth: Int            // الشهر الحالي المحدد
+    @Published var selectedYear: Int             // السنة الحالية المحددة
+    @Published var showingPicker = false         // للتحكم في ظهور نافذة اختيار التاريخ
+    @Published var weekOffset = 0                // رقم الأسبوع داخل الشهر
+    @Published var days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"] // أسماء أيام الأسبوع
+    @Published var numbers: [String] = []        // أرقام الأيام في الأسبوع الحالي
     
+    // MARK: - الثوابت الخاصة بالأشهر والسنوات
+    let months = Calendar.current.monthSymbols    // أسماء الأشهر
+    let years: [Int]                              // قائمة السنوات من 2000 إلى 2035
+    
+    // MARK: - المُهيئ (initializer) لضبط القيم الابتدائية
     init() {
         let calendar = Calendar.current
         self.selectedMonth = calendar.component(.month, from: Date())
         self.selectedYear = calendar.component(.year, from: Date())
         self.years = Array(2000...2035)
-        updateNumbersForWeek()
+        updateNumbersForWeek() // تحديث الأيام أول مرة
     }
     
-    // تحديث أرقام الأسبوع بطريقة آمنة
+    // MARK: - دالة لتحديث أرقام الأيام في الأسبوع الحالي
     func updateNumbersForWeek() {
         let calendar = Calendar.current
         guard let startOfMonth = calendar.date(from: DateComponents(year: selectedYear, month: selectedMonth, day: 1)) else {
@@ -59,6 +64,7 @@ class ActivityViewModel: ObservableObject {
         }
     }
     
+    // MARK: - الانتقال إلى الأسبوع السابق
     func previousWeek() {
         if weekOffset > 0 {
             weekOffset -= 1
@@ -66,6 +72,7 @@ class ActivityViewModel: ObservableObject {
         }
     }
     
+    // MARK: - الانتقال إلى الأسبوع التالي
     func nextWeek() {
         let calendar = Calendar.current
         guard let startOfMonth = calendar.date(from: DateComponents(year: selectedYear, month: selectedMonth, day: 1)) else { return }
@@ -77,6 +84,7 @@ class ActivityViewModel: ObservableObject {
         }
     }
     
+    // MARK: - اسم الشهر الحالي (باللغة الافتراضية للنظام)
     var currentMonthName: String {
         let safeIndex = selectedMonth - 1
         guard safeIndex >= 0 && safeIndex < months.count else {
@@ -85,13 +93,15 @@ class ActivityViewModel: ObservableObject {
         return months[safeIndex]
     }
     
+    // MARK: - حالة اليوم الحالي (هل تم التعلم أو التجميد اليوم)
     @Published var hasLearnedToday = false
     @Published var hasFreezedToday = false
 
-    @Published var streakCount = 0         // الأيام المتعلمة
-    @Published var freezedCount = 0        // الأيام المجمدة
+    // MARK: - العدادات الخاصة بعدد الأيام المتعلمة والمجمدة
+    @Published var streakCount = 0   // عدد الأيام التي تم فيها التعلم
+    @Published var freezedCount = 0  // عدد الأيام التي تم فيها التجميد
 
-    // دالة الضغط على زر التعلم (بدون تمرير يوم)
+    // MARK: - تسجيل اليوم كمتعَلَّم بدون تحديد يوم معين (قديم)
     func logAsLearned() {
         if !hasLearnedToday && !hasFreezedToday {
             hasLearnedToday = true
@@ -99,7 +109,7 @@ class ActivityViewModel: ObservableObject {
         }
     }
 
-    // دالة الضغط على زر Freezed (بدون تمرير يوم)
+    // MARK: - تسجيل اليوم كمجمّد بدون تحديد يوم معين (قديم)
     func logAsFreezed() {
         if !hasFreezedToday && !hasLearnedToday {
             hasFreezedToday = true
@@ -107,17 +117,17 @@ class ActivityViewModel: ObservableObject {
         }
     }
 
-    // (اختياري) إعادة التفعيل في اليوم الجديد
+    // MARK: - إعادة التفعيل في اليوم الجديد (للبدء من جديد)
     func resetForNewDay() {
         hasLearnedToday = false
         hasFreezedToday = false
     }
-  
-    // ✅ نضيف متغيرين لتحديد اليوم اللي تعلم أو تجمد
+    
+    // MARK: - تحديد اليوم الذي تم التعلم أو التجميد فيه
     @Published var learnedDay: String? = nil
     @Published var freezedDay: String? = nil
 
-    // FIX: rename to the correct spelling to match call sites
+    // MARK: - تسجيل يوم معين كمتعَلَّم
     func logAsLearned(currentDay: String) {
         if !hasLearnedToday && !hasFreezedToday {
             hasLearnedToday = true
@@ -126,11 +136,26 @@ class ActivityViewModel: ObservableObject {
         }
     }
 
+    // MARK: - الحد الأقصى لعدد الأيام التي يمكن تجميدها حسب نوع الخطة
+    var maxFreezes: Int {
+        switch selectedButton {
+        case "Week":
+            return 2    // محاولتان في الأسبوع
+        case "Month":
+            return 8    // 8 محاولات في الشهر
+        case "Year":
+            return 96   // 96 محاولة في السنة
+        default:
+            return 2    // القيمة الافتراضية
+        }
+    }
+
+    // MARK: - تسجيل يوم معين كمجمّد مع مراعاة الحد الأقصى للتجميدات
     func logAsFreezed(currentDay: String) {
-        if !hasFreezedToday && !hasLearnedToday && freezedCount < 2 {
+        if !hasFreezedToday && !hasLearnedToday && freezedCount < maxFreezes {
             hasFreezedToday = true
             freezedCount += 1
             freezedDay = currentDay
         }
     }
-}
+} //class

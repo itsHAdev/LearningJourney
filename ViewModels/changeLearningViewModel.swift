@@ -10,5 +10,10 @@ import Combine
 
 class changeLearningViewModel: ObservableObject {
     @Published var selectedButton: String? = nil
-    @Published var inputText: String = ""
+    @Published var inputText: String
+    
+    init(initialSelection: String? = nil, initialInput: String) {
+            self.selectedButton = initialSelection
+            self.inputText = initialInput
+        }
 }
