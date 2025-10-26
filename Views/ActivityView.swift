@@ -115,10 +115,12 @@ struct ActivityView: View {
                                             ZStack {
                                                 if activityVM.learnedDay == number {
                                                     Circle()
-                                                        .foregroundStyle(Color.orange.opacity(0.4))
+                                                        .foregroundStyle(Color.orange.opacity(0.7))
+                                                        .multilineTextAlignment(.center)
                                                 } else if activityVM.freezedDay == number {
                                                     Circle()
-                                                        .foregroundStyle(Color.cyan.opacity(0.4))
+                                                        .foregroundStyle(Color.cyanApp.opacity(0.7))
+                                                        .multilineTextAlignment(.center)
                                                 }
                                             }//z
                                         )
