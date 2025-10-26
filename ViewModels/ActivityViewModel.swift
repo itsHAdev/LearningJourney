@@ -30,9 +30,16 @@ class ActivityViewModel: ObservableObject {
     // MARK: - المُهيئ (initializer) لضبط القيم الابتدائية
     init() {
         let calendar = Calendar.current
-        self.selectedMonth = calendar.component(.month, from: Date())
-        self.selectedYear = calendar.component(.year, from: Date())
+        let today = Date()
+        self.selectedMonth = calendar.component(.month, from: today)
+        self.selectedYear = calendar.component(.year, from: today)
         self.years = Array(2000...2035)
+        if let _ = calendar.date(from: DateComponents(year: self.selectedYear, month: self.selectedMonth, day: 1)) {
+            let dayNumberOfMonth = calendar.component(.day, from: today)
+            self.weekOffset = (dayNumberOfMonth - 1) / 7
+        } else {
+            self.weekOffset = 0
+        }
         updateNumbersForWeek() // تحديث الأيام أول مرة
     }
     
@@ -43,7 +50,6 @@ class ActivityViewModel: ObservableObject {
             numbers = Array(repeating: "-", count: 7)
             return
         }
-        
         let totalDays = calendar.range(of: .day, in: .month, for: startOfMonth)?.count ?? 30
         let maxOffset = max((totalDays - 1) / 7, 0)
         if weekOffset > maxOffset { weekOffset = maxOffset }

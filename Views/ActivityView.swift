@@ -128,7 +128,7 @@ struct ActivityView: View {
                         }//hCalendar
                         
                         Spacer().frame(height: 6)
-                        
+                        //الخط الفاصل
                         Color.gray.frame(width: 329, height: 0.5)
                         
                         Spacer().frame(height: 12)
