@@ -113,12 +113,12 @@ struct CalendarMonthView: View {
                                     Circle()
                                         .fill(Color.orange.opacity(0.7))
                                         .multilineTextAlignment(.center)
-                                        .frame(width: 30, height: 30)
+                                        .frame(width: 35, height: 35)
                                 } else if status == .freezed {
                                     Circle()
                                         .fill(Color.cyanApp.opacity(0.7))
                                         .multilineTextAlignment(.center)
-                                        .frame(width: 30, height: 30)
+                                        .frame(width: 35, height: 35)
                                 }
                                 
                                 Text("\(dayNumber)")
