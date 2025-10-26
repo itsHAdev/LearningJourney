@@ -98,6 +98,10 @@ struct ChangeLearningView: View {
                     activityVM.streakCount = 0
                     activityVM.freezedCount = 0
                     userText = viewModel.inputText
+                    activityVM.hasLearnedToday = false
+                    activityVM.hasFreezedToday = false
+                    activityVM.learnedDay = nil
+                    activityVM.freezedDay = nil
                 }
                 dismiss()
             }
