@@ -10,12 +10,14 @@ import SwiftUI
 struct ContentView: View {
     @AppStorage("hasSeenStartView") private var hasSeenStartView = false
     @StateObject var activityVM = ActivityViewModel()
+    @StateObject var activityTracker = ActivityTracker() // Shared tracker for both views
+    
     var body: some View {
         
         if hasSeenStartView {
-            ActivityView(activityVM: activityVM)
+            ActivityView(activityVM: activityVM, activityTracker: activityTracker)
         } else {
-            StartView(activityVM: activityVM)
+            StartView(activityVM: activityVM, activityTracker: activityTracker)
         }
         
      }
@@ -26,4 +28,3 @@ struct ContentView: View {
     ContentView()
         .preferredColorScheme(.dark)
 }
-

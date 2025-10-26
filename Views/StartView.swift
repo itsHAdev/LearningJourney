@@ -9,6 +9,7 @@ import SwiftUI
 
 struct StartView: View {
     @ObservedObject var activityVM: ActivityViewModel
+    @ObservedObject var activityTracker: ActivityTracker // Pass-through tracker
     @StateObject private var viewModel = StartViewModel()
     @State private var showHome = false
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
@@ -27,7 +28,6 @@ struct StartView: View {
                     .frame(width:109,height: 109)
                     .shadow(color: Color.orange.opacity(1), radius: 0.1, x: 0.5, y: 0.5)
                     .shadow(color: Color.orange.opacity(1), radius: 0.1, x: -0.5, y: -0.5)
-                    //.shadow(color:Color.orange , radius: 2)
                     .blur(radius: 0.25)
                 
                 Image(systemName: "flame.fill")
@@ -102,7 +102,7 @@ struct StartView: View {
                     }//B
                 }//forEach
                 
-                Spacer()//يخليهم من اليسار
+                Spacer()
                 
             }//h
             
@@ -129,7 +129,7 @@ struct StartView: View {
             }//B
             .disabled(viewModel.selectedButton == nil)
             .fullScreenCover(isPresented: $showHome) {
-                ActivityView(activityVM: activityVM)
+                ActivityView(activityVM: activityVM, activityTracker: activityTracker)
             }
             
             
@@ -142,7 +142,6 @@ struct StartView: View {
 
 
 #Preview {
-    StartView(activityVM: ActivityViewModel())
+    StartView(activityVM: ActivityViewModel(), activityTracker: ActivityTracker())
         .preferredColorScheme(.dark)
 }
-

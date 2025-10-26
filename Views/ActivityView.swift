@@ -10,6 +10,7 @@ struct ActivityView: View {
     @State private var showSecondView = false
     @AppStorage("userText") private var userText: String = ""
     @ObservedObject var activityVM: ActivityViewModel
+    @ObservedObject var activityTracker: ActivityTracker
 
     var body: some View {
         
@@ -25,7 +26,7 @@ struct ActivityView: View {
                     
                     Spacer().frame(width: 138)
                     
-                    NavigationLink(destination: CalendarView())  {
+                    NavigationLink(destination: CalendarView(activityTracker: activityTracker))  {
                         ZStack{
                             Color.black
                                 .cornerRadius(1000)
@@ -65,48 +66,45 @@ struct ActivityView: View {
                         .shadow(color: Color.white.opacity(1), radius: 0.1, x: 0.1, y: 0.1)
                         .shadow(color: Color.white.opacity(1), radius: 0.1, x: -0.3, y: -0.3)
                     
-                    VStack{
                 
                 //MARK: - Calendar
                 
+                        VStack{
+                        
                         HStack{
-        
-                                Text("\(activityVM.currentMonthName) \(String(format: "%d", activityVM.selectedYear))") 
-                                    .font(.system(size: 17))
+            
+                            Text("\(activityVM.currentMonthName) \(String(activityVM.selectedYear))")
+                                .font(.system(size: 17))
                                
                             Button { activityVM.showingPicker = true } label: {
                                 Image(systemName: "chevron.right")
                                     .foregroundStyle(Color.orange)
-                            }//bالزر الي جنب الشهر
+                            }
                             
                             Spacer().frame(width: 150)
                             
                             Button { activityVM.previousWeek() } label: {
                                 Image(systemName: "chevron.left")
                                     .foregroundStyle(Color.orange)
-                            }//bleft
+                            }
                             
                             Spacer().frame(width: 27)
                             
                             Button { activityVM.nextWeek() } label: {
                                 Image(systemName: "chevron.right")
                                     .foregroundStyle(Color.orange)
-                            }//bRight
-                        }//h
+                            }
+                        }
                         
                         Spacer().frame(height: 12)
                         
                         HStack(spacing: 8) {
                             ForEach(Array(zip(activityVM.days.indices, activityVM.numbers)), id: \.0) { index, number in
                                 VStack(spacing: 4) {
-                                    
-                                    // اسم اليوم
                                     Text(activityVM.days[index])
                                         .foregroundStyle(Color.gray)
                                         .font(.system(size: 13, weight: .semibold))
                                     
-                                    
-                                    // الرقم والدائره
                                     Text(number)
                                         .foregroundStyle(Color.white)
                                         .font(.system(size: 20))
@@ -116,25 +114,20 @@ struct ActivityView: View {
                                                 if activityVM.learnedDay == number {
                                                     Circle()
                                                         .foregroundStyle(Color.orange.opacity(0.7))
-                                                        .multilineTextAlignment(.center)
                                                 } else if activityVM.freezedDay == number {
                                                     Circle()
                                                         .foregroundStyle(Color.cyanApp.opacity(0.7))
-                                                        .multilineTextAlignment(.center)
                                                 }
                                             }//z
                                         )
                                 }//v
                             }//forE
-                            
-                        }//hCalendar
+                        }//h
                         
                         Spacer().frame(height: 6)
-                        //الخط الفاصل
                         Color.gray.frame(width: 329, height: 0.5)
                         
                         Spacer().frame(height: 12)
-                        
                         
                         //MARK: - Streak
                         
@@ -158,7 +151,7 @@ struct ActivityView: View {
                                             .font(.system(size: 12)).multilineTextAlignment(.leading)
                                     }//v
                                 }//h
-                            }//zorange
+                            }//z
                             
                             ZStack{
                                 Color.cyan.frame(width: 160,height: 69).cornerRadius(34).opacity(0.2)
@@ -173,24 +166,23 @@ struct ActivityView: View {
                                             .font(.system(size: 12)).multilineTextAlignment(.leading)
                                     }//v
                                 }//h
-                            }//zCyan
-                        }//hStreak
-                    }//v
+                            }//z
+                        }//hStreek
+                    }//vCallendar
                 }//zBlackBox
                 
                 Spacer().frame(height: 32)
             
-                
                 // MARK: - Learned Button
                 
                 Button {
-                    let today = String(Calendar.current.component(.day, from: Date()))
-                    activityVM.logAsLearned(currentDay: today)
+                    let today = Date()
+                    let todayDayNumber = String(Calendar.current.component(.day, from: today))
+                    activityVM.logAsLearned(currentDay: todayDayNumber)
+                    activityTracker.setStatus(.learned, for: today)
                 } label: {
                     ZStack {
                         if activityVM.hasLearnedToday {
-                            
-                            // Learned
                             Color.blackOrange
                                 .frame(width: 274, height: 274)
                                 .cornerRadius(1000)
@@ -204,7 +196,6 @@ struct ActivityView: View {
                                 .bold()
 
                         } else if activityVM.hasFreezedToday {
-                            // Freeezed
                             Color.blackCyan
                                 .frame(width: 274, height: 274)
                                 .cornerRadius(1000)
@@ -218,7 +209,6 @@ struct ActivityView: View {
                                 .bold()
                                 .multilineTextAlignment(.center)
                         } else {
-                            // قبل الضغط
                             Color.orangeApp
                                 .frame(width: 274, height: 274)
                                 .cornerRadius(1000)
@@ -240,12 +230,13 @@ struct ActivityView: View {
                 // MARK: - Freezed Button
                 
                 Button {
-                    let today = String(Calendar.current.component(.day, from: Date()))
-                    activityVM.logAsFreezed(currentDay: today)
+                    let today = Date()
+                    let todayDayNumber = String(Calendar.current.component(.day, from: today))
+                    activityVM.logAsFreezed(currentDay: todayDayNumber)
+                    activityTracker.setStatus(.freezed, for: today)
                 } label: {
                     ZStack {
                         if activityVM.hasFreezedToday {
-                            // بعد الضغط
                             Color.darkCyan
                                 .frame(width: 274, height: 48)
                                 .cornerRadius(1000)
@@ -256,7 +247,6 @@ struct ActivityView: View {
                                 .foregroundStyle(Color.white)
                                 .frame(width: 274, height: 48)
                         } else {
-                            // قبل الضغط
                             Color.cyanApp
                                 .frame(width: 274, height: 48)
                                 .cornerRadius(1000)
@@ -267,13 +257,12 @@ struct ActivityView: View {
                                 .foregroundStyle(Color.white)
                                 .frame(width: 274, height: 48)
                         }
-                    }
-                }
+                    }//z
+                }//b
                 .disabled(activityVM.hasLearnedToday || activityVM.hasFreezedToday)
 
                 Spacer().frame(height: 12)
                 
-            
                 Text("\(activityVM.freezedCount) out of \(activityVM.maxFreezes) Freezes used")
                     .font(.system(size: 14))
                     .foregroundStyle(Color.gray)
@@ -282,9 +271,9 @@ struct ActivityView: View {
             }//vMain
             .navigationBarBackButtonHidden(false)
         }//navStack
-        
-        //MARK: - Overlay Picker
        
+        //MARK: - PiceerOverlay
+        
         .overlay(
             Group {
                 if activityVM.showingPicker {
@@ -322,7 +311,7 @@ struct ActivityView: View {
                     .transition(.scale.combined(with: .opacity)).zIndex(1)
                 }
             }
-        )//overlay
+        )
         
         .animation(.easeInOut, value: activityVM.showingPicker)
         
@@ -330,7 +319,6 @@ struct ActivityView: View {
 }
 
 #Preview {
-    ActivityView(activityVM: ActivityViewModel())
+    ActivityView(activityVM: ActivityViewModel(), activityTracker: ActivityTracker())
         .preferredColorScheme(.dark)
 }
-
