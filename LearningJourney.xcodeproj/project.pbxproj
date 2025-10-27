@@ -41,7 +41,6 @@
 		5F12A0222EA0D22D006D600B /* LearningJourneyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LearningJourneyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F12A02C2EA0D22D006D600B /* LearningJourneyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LearningJourneyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F76CCBC2EAA5DEF009E3333 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
-		5F9D689B2EAA27DB004CC9E4 /* model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = model.swift; sourceTree = "<group>"; };
 		5FB333C82EA76C1200700369 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		5FBE1A062EAE9A6700546D38 /* ActivityTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTracker.swift; sourceTree = "<group>"; };
 		5FDB66492EA60A1A0030D0A3 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
@@ -122,7 +121,7 @@
 		5FDB665B2EA60B090030D0A3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				5F9D689B2EAA27DB004CC9E4 /* model.swift */,
+				5FBE1A062EAE9A6700546D38 /* ActivityTracker.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -130,7 +129,6 @@
 		5FDB665C2EA60B130030D0A3 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				5FBE1A062EAE9A6700546D38 /* ActivityTracker.swift */,
 				5FF2F1EF2EAA8A860045BDAA /* changeLearningViewModel.swift */,
 				5FF2F1ED2EAA7B720045BDAA /* StartViewModel.swift */,
 				5FF2F1E52EAA6DBF0045BDAA /* CalendarViewModel.swift */,

@@ -13,29 +13,6 @@ struct ActivityView: View {
     @ObservedObject var activityTracker: ActivityTracker
     @Environment(\.scenePhase) private var scenePhase
 
-    // Helper: بناء تاريخ من يوم/شهر/سنة
-    private func dateFor(dayString: String, month: Int, year: Int) -> Date? {
-        guard let day = Int(dayString) else { return nil }
-        var comps = DateComponents()
-        comps.year = year
-        comps.month = month
-        comps.day = day
-        return Calendar.current.date(from: comps)
-    }
-
-    // مزامنة حالة اليوم من ActivityTracker إلى ActivityViewModel
-    private func syncTodayState() {
-        let today = Date()
-        let status = activityTracker.statusFor(date: today)
-        activityVM.hasLearnedToday = (status == .learned)
-        activityVM.hasFreezedToday = (status == .freezed)
-
-        // تحديث learnedDay/freezedDay اختياريًا لعرض الأسبوع الحالي (إن كانت مطلوبة)
-        let todayDayNumber = String(Calendar.current.component(.day, from: today))
-        activityVM.learnedDay = activityVM.hasLearnedToday ? todayDayNumber : nil
-        activityVM.freezedDay = activityVM.hasFreezedToday ? todayDayNumber : nil
-    }
-
     var body: some View {
         
         NavigationStack{
@@ -64,7 +41,7 @@ struct ActivityView: View {
                         }//z
                     }//navCalendar
             
-                    NavigationLink(destination: ChangeLearningView(activityVM: activityVM)) {
+                    NavigationLink(destination: ChangeLearningView(activityVM: activityVM, activityTracker: activityTracker)) {
                         ZStack {
                             Color.black
                                 .cornerRadius(1000)
@@ -103,22 +80,22 @@ struct ActivityView: View {
                             Button { activityVM.showingPicker = true } label: {
                                 Image(systemName: "chevron.right")
                                     .foregroundStyle(Color.orange)
-                            }
+                            }//bPicker
                             
                             Spacer().frame(width: 150)
                             
                             Button { activityVM.previousWeek() } label: {
                                 Image(systemName: "chevron.left")
                                     .foregroundStyle(Color.orange)
-                            }
+                            }//bLeft
                             
                             Spacer().frame(width: 27)
                             
                             Button { activityVM.nextWeek() } label: {
                                 Image(systemName: "chevron.right")
                                     .foregroundStyle(Color.orange)
-                            }
-                        }
+                            }//bRight
+                        }//h
                         
                         Spacer().frame(height: 12)
                         
@@ -129,9 +106,8 @@ struct ActivityView: View {
                                         .foregroundStyle(Color.gray)
                                         .font(.system(size: 13, weight: .semibold))
                                     
-                                    // تحديد الحالة من ActivityTracker بناءً على التاريخ الحقيقي للخانة
                                     let status: Status? = {
-                                        guard number != "-", let date = dateFor(dayString: number, month: activityVM.selectedMonth, year: activityVM.selectedYear) else {
+                                        guard number != "-", let date = activityVM.dateFor(dayString: number, month: activityVM.selectedMonth, year: activityVM.selectedYear) else {
                                             return nil
                                         }
                                         return activityTracker.statusFor(date: date)
@@ -195,7 +171,6 @@ struct ActivityView: View {
                             }//z
                             
                             ZStack{
-                                
                                 Color.cyan
                                     .frame(width: 160,height: 69)
                                     .cornerRadius(34).opacity(0.2)
@@ -370,13 +345,12 @@ struct ActivityView: View {
         )
         
         .animation(.easeInOut, value: activityVM.showingPicker)
-        // مزامنة الحالة عند ظهور الشاشة وأيضًا عند عودة التطبيق للنشاط
         .onAppear {
-            syncTodayState()
+            activityVM.syncTodayState()
         }
         .onChange(of: scenePhase) { _, newPhase in
             if newPhase == .active {
-                syncTodayState()
+                activityVM.syncTodayState()
                 activityVM.updateNumbersForWeek()
             }
         }
@@ -385,7 +359,7 @@ struct ActivityView: View {
 }
 
 #Preview {
-    ActivityView(activityVM: ActivityViewModel(), activityTracker: ActivityTracker())
+    ActivityView(activityVM: ActivityViewModel(activityTracker: ActivityTracker()), activityTracker: ActivityTracker())
         .preferredColorScheme(.dark)
 }
 

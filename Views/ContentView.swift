@@ -9,8 +9,14 @@ import SwiftUI
 
 struct ContentView: View {
     @AppStorage("hasSeenStartView") private var hasSeenStartView = false
-    @StateObject var activityVM = ActivityViewModel()
     @StateObject var activityTracker = ActivityTracker()
+    @StateObject var activityVM: ActivityViewModel
+    
+    init() {
+        let tracker = ActivityTracker()
+        _activityTracker = StateObject(wrappedValue: tracker)
+        _activityVM = StateObject(wrappedValue: ActivityViewModel(activityTracker: tracker))
+    }
     
     var body: some View {
         Group {
@@ -27,3 +33,4 @@ struct ContentView: View {
     ContentView()
         .preferredColorScheme(.dark)
 }
+

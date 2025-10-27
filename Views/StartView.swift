@@ -124,6 +124,7 @@ struct StartView: View {
 }
 
 #Preview {
-    StartView(activityVM: ActivityViewModel(), activityTracker: ActivityTracker(), hasSeenStartView: .constant(false))
+    StartView(activityVM: ActivityViewModel(activityTracker: ActivityTracker()), activityTracker: ActivityTracker(), hasSeenStartView: .constant(false))
         .preferredColorScheme(.dark)
 }
+

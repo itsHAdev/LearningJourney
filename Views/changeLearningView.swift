@@ -10,21 +10,24 @@ import SwiftUI
 struct ChangeLearningView: View {
 
     @ObservedObject var activityVM: ActivityViewModel
+    @ObservedObject var activityTracker: ActivityTracker
     @StateObject private var viewModel: changeLearningViewModel
     @AppStorage("hasSeenOnboarding") var hasSeenOnboarding = false
     @AppStorage("userText") var userText: String = ""
     @State private var showAlert = false
     @Environment(\.dismiss) var dismiss
-    init(activityVM: ActivityViewModel) {
+
+    init(activityVM: ActivityViewModel, activityTracker: ActivityTracker) {
         self._activityVM = ObservedObject(wrappedValue: activityVM)
-        
+        self._activityTracker = ObservedObject(wrappedValue: activityTracker)
+
         let currentUserName = UserDefaults.standard.string(forKey: "userText") ?? "Swift"
-        
         self._viewModel = StateObject(wrappedValue: changeLearningViewModel(
             initialSelection: nil,
             initialInput: currentUserName
         ))
     }
+
     var body: some View {
         
         VStack {
@@ -94,14 +97,25 @@ struct ChangeLearningView: View {
             Button("Cancel", role: .cancel) { }
             Button("Confirm") {
                 if let newPlan = viewModel.selectedButton {
+                    // 1) تحديت الخطة
                     activityVM.selectedButton = newPlan
+
+                    // 2) ريست كامل لـ ActivityViewModel (محفوظ AppStorage للعدادات)
                     activityVM.streakCount = 0
                     activityVM.freezedCount = 0
-                    userText = viewModel.inputText
                     activityVM.hasLearnedToday = false
                     activityVM.hasFreezedToday = false
                     activityVM.learnedDay = nil
                     activityVM.freezedDay = nil
+
+                    // 3) تحديث نص التعلم
+                    userText = viewModel.inputText
+
+                    // 4) مسح سجل التقويم بالكامل
+                    activityTracker.reset()
+
+                    // 5) إعادة ضبط عرض الأسبوع الحالي
+                    activityVM.updateNumbersForWeek()
                 }
                 dismiss()
             }
@@ -129,6 +143,7 @@ struct ChangeLearningView: View {
     }//body
 }
 #Preview {
-    ChangeLearningView(activityVM: ActivityViewModel())
+    ChangeLearningView(activityVM: ActivityViewModel(activityTracker: ActivityTracker()), activityTracker: ActivityTracker())
         .preferredColorScheme(.dark)
 }
+
