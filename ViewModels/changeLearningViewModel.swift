@@ -16,4 +16,4 @@ class changeLearningViewModel: ObservableObject {
             self.selectedButton = initialSelection
             self.inputText = initialInput
         }
-}
+}//class

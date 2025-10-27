@@ -11,4 +11,4 @@ import Combine
 class StartViewModel: ObservableObject {
     @Published var selectedButton: String? = nil
     @Published var inputText: String = ""
-}
+}//class

@@ -7,7 +7,6 @@
 import SwiftUI
 import Combine
 
-// MARK: - نموذج البيانات (ViewModel) المسؤول عن منطق صفحة النشاط (Activity)
 class ActivityViewModel: ObservableObject {
     
     // MARK: - تخزين الإعدادات العامة باستخدام AppStorage (لحفظها حتى بعد إغلاق التطبيق)

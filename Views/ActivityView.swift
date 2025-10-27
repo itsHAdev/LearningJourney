@@ -139,31 +139,47 @@ struct ActivityView: View {
                         Spacer().frame(height: 12)
                         
                         HStack{
+                            
                             ZStack{
-                                Color.orangeApp.frame(width: 160,height: 69).cornerRadius(34).opacity(0.2)
+                                Color.orangeApp
+                                    .frame(width: 160,height: 69)
+                                    .cornerRadius(34)
+                                    .opacity(0.2)
                                 HStack{
-                                    Image(systemName: "flame.fill").foregroundStyle(Color.orange).font(.system(size: 20))
+                                    Image(systemName: "flame.fill")
+                                        .foregroundStyle(Color.orange)
+                                        .font(.system(size: 20))
                                     VStack{
                                         Text(" \(activityVM.streakCount)")
-                                            .offset(x:-30).font(.system(size: 24)).bold()
+                                            .offset(x:-30)
+                                            .font(.system(size: 24))
+                                            .bold()
                                         
                                         Text("Days Learned")
-                                            .font(.system(size: 12)).multilineTextAlignment(.leading)
+                                            .font(.system(size: 12))
+                                            .multilineTextAlignment(.leading)
                                     }//v
                                 }//h
                             }//z
                             
                             ZStack{
-                                Color.cyan.frame(width: 160,height: 69).cornerRadius(34).opacity(0.2)
+                                
+                                Color.cyan
+                                    .frame(width: 160,height: 69)
+                                    .cornerRadius(34).opacity(0.2)
                                 HStack{
                                     Image(systemName: "cube.fill")
-                                        .foregroundStyle(Color.cyan).font(.system(size: 20))
+                                        .foregroundStyle(Color.cyan)
+                                        .font(.system(size: 20))
                                     VStack{
                                         Text(" \(activityVM.freezedCount)")
-                                            .offset(x:-30).font(.system(size: 24)).bold()
+                                            .offset(x:-30)
+                                            .font(.system(size: 24))
+                                            .bold()
                                         
                                         Text("Days Freezed")
-                                            .font(.system(size: 12)).multilineTextAlignment(.leading)
+                                            .font(.system(size: 12))
+                                            .multilineTextAlignment(.leading)
                                     }//v
                                 }//h
                             }//z
@@ -183,6 +199,7 @@ struct ActivityView: View {
                 } label: {
                     ZStack {
                         if activityVM.hasLearnedToday {
+                            //Learned Today
                             Color.blackOrange
                                 .frame(width: 274, height: 274)
                                 .cornerRadius(1000)
@@ -196,6 +213,7 @@ struct ActivityView: View {
                                 .bold()
 
                         } else if activityVM.hasFreezedToday {
+                            //Freezed
                             Color.blackCyan
                                 .frame(width: 274, height: 274)
                                 .cornerRadius(1000)
@@ -209,6 +227,7 @@ struct ActivityView: View {
                                 .bold()
                                 .multilineTextAlignment(.center)
                         } else {
+                            //original
                             Color.orangeApp
                                 .frame(width: 274, height: 274)
                                 .cornerRadius(1000)
@@ -237,6 +256,7 @@ struct ActivityView: View {
                 } label: {
                     ZStack {
                         if activityVM.hasFreezedToday {
+                            //Freezed
                             Color.darkCyan
                                 .frame(width: 274, height: 48)
                                 .cornerRadius(1000)
@@ -247,6 +267,7 @@ struct ActivityView: View {
                                 .foregroundStyle(Color.white)
                                 .frame(width: 274, height: 48)
                         } else {
+                           //original
                             Color.cyanApp
                                 .frame(width: 274, height: 48)
                                 .cornerRadius(1000)
@@ -262,6 +283,8 @@ struct ActivityView: View {
                 .disabled(activityVM.hasLearnedToday || activityVM.hasFreezedToday)
 
                 Spacer().frame(height: 12)
+                
+                //MARK: - Max Freezed
                 
                 Text("\(activityVM.freezedCount) out of \(activityVM.maxFreezes) Freezes used")
                     .font(.system(size: 14))

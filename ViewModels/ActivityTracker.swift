@@ -33,4 +33,4 @@ final class ActivityTracker: ObservableObject {
             statusByDay[key] = status
         }
     }
-}
+}//class
