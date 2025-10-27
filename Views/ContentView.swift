@@ -10,19 +10,18 @@ import SwiftUI
 struct ContentView: View {
     @AppStorage("hasSeenStartView") private var hasSeenStartView = false
     @StateObject var activityVM = ActivityViewModel()
-    @StateObject var activityTracker = ActivityTracker() // Shared tracker for both views
+    @StateObject var activityTracker = ActivityTracker()
     
     var body: some View {
-        
-        if hasSeenStartView {
-            ActivityView(activityVM: activityVM, activityTracker: activityTracker)
-        } else {
-            StartView(activityVM: activityVM, activityTracker: activityTracker)
+        Group {
+            if hasSeenStartView {
+                ActivityView(activityVM: activityVM, activityTracker: activityTracker)
+            } else {
+                StartView(activityVM: activityVM, activityTracker: activityTracker, hasSeenStartView: $hasSeenStartView)
+            }
         }
-        
-     }
     }
-
+}
 
 #Preview {
     ContentView()

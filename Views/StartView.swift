@@ -9,23 +9,19 @@ import SwiftUI
 
 struct StartView: View {
     @ObservedObject var activityVM: ActivityViewModel
-    @ObservedObject var activityTracker: ActivityTracker // Pass-through tracker
+    @ObservedObject var activityTracker: ActivityTracker
     @StateObject private var viewModel = StartViewModel()
     @State private var showHome = false
-    @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
     @AppStorage("userText") private var userText: String = ""
+    @Binding var hasSeenStartView: Bool
     
     var body: some View {
-        
         VStack {
-            
-            //MARK: - Icon
-            
-            ZStack{
-                
+            // MARK: - Icon
+            ZStack {
                 Circle()
                     .fill(Color.black)
-                    .frame(width:109,height: 109)
+                    .frame(width:109, height:109)
                     .shadow(color: Color.orange.opacity(1), radius: 0.1, x: 0.5, y: 0.5)
                     .shadow(color: Color.orange.opacity(1), radius: 0.1, x: -0.5, y: -0.5)
                     .blur(radius: 0.25)
@@ -33,12 +29,9 @@ struct StartView: View {
                 Image(systemName: "flame.fill")
                     .font(.system(size: 36))
                     .foregroundColor(.orange)
-                
-            }//Z icon
-            
+            }
             
             Spacer().frame(height: 47)
-            
             
             VStack(spacing: 4) {
                 Text("Hello Learner")
@@ -51,35 +44,32 @@ struct StartView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.system(size: 17))
                     .foregroundStyle(Color.gray)
-            }//V
+            }
             
             Spacer().frame(height: 31)
             
-            VStack{
+            VStack {
                 Text("I want to learn")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.system(size: 22))
                 
-                
                 TextField("Swift", text: $viewModel.inputText)
                     .padding()
-                    .frame(width: 393 , height: 48)
+                    .frame(width: 393, height: 48)
                 
                 Color.blackApp
-                    .frame(width: 361 , height: 1.5)
+                    .frame(width: 361, height: 1.5)
                 
                 Spacer().frame(height: 24)
                 
                 Text("I want to learn it in a ")
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .font(.system(size:22))
-                
-            }//V
+                    .font(.system(size: 22))
+            }
             
             Spacer().frame(height: 17)
             
-            //MARK: - 3Button
-            
+            // MARK: - 3 Buttons
             HStack(spacing: 10) {
                 ForEach(["Week","Month","Year"], id: \.self) { button in
                     Button {
@@ -99,25 +89,22 @@ struct StartView: View {
                                     radius: 0.1,
                                     x: viewModel.selectedButton == button ? -0.9 : -0.5,
                                     y: viewModel.selectedButton == button ? -0.9 : -0.5)
-                    }//B
-                }//forEach
-                
+                    }
+                }
                 Spacer()
-                
-            }//h
+            }
             
             Spacer().frame(height: 223)
             
-            //MARK: - StartButton
-            
+            // MARK: - Start Button
             Button {
                 userText = viewModel.inputText
-                hasSeenOnboarding = true
+                hasSeenStartView = true // 🔥 يخفي صفحة البداية للأبد
                 showHome = true
             } label: {
                 ZStack {
                     Rectangle()
-                        .frame(width: 182 , height: 48)
+                        .frame(width: 182, height: 48)
                         .cornerRadius(1000)
                         .foregroundStyle(Color.orangeApp)
                         .shadow(color: Color.orange.opacity(1), radius: 0.1, x: 1.3, y: 1.3)
@@ -125,23 +112,18 @@ struct StartView: View {
                     
                     Text("Start learning")
                         .foregroundStyle(Color.white)
-                }//z
-            }//B
+                }
+            }
             .disabled(viewModel.selectedButton == nil)
             .fullScreenCover(isPresented: $showHome) {
                 ActivityView(activityVM: activityVM, activityTracker: activityTracker)
             }
-            
-            
-        }//vMain
-        
+        }
         .padding()
-        
-    }//body
+    }
 }
 
-
 #Preview {
-    StartView(activityVM: ActivityViewModel(), activityTracker: ActivityTracker())
+    StartView(activityVM: ActivityViewModel(), activityTracker: ActivityTracker(), hasSeenStartView: .constant(false))
         .preferredColorScheme(.dark)
 }
