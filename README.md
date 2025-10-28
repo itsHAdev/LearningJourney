@@ -10,4 +10,4 @@ Technologies Used
 -JSONEncoder / JSONDecoder
 
 By: Hadeel Alansari 
-email:Hadeel,Alansari.01@hotmail.com
+email:Hadeel.Alansari.01@hotmail.com
